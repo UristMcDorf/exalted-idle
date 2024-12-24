@@ -7,4 +7,4 @@ Inspirations include:
 - https://miktaew.github.io/yet-another-idle-rpg/
 and many others.
 
-Exalted is a trademark of White Wolf Publishing AB. This is a fan work not endorsed, promoted or sanctioned by White Wolf Publishing AB.
+Exalted is a trademark of Paradox Interactive AB. This is a fan work not endorsed, promoted or sanctioned by Paradox Interactive AB.
