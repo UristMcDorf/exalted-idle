@@ -1,0 +1,14 @@
+node_modules/*
+!node_modules/hacktimer
+
+dist/*
+
+# recommended by https://www.gitignore.io apparently
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+**/.history

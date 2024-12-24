@@ -1,0 +1,37 @@
+{
+    "ability":
+    {
+        "archery": { "name": "Archery" },
+        "athletics": { "name": "Athletics" },
+        "awareness": { "name": "Awareness" },
+        "bureaucracy": { "name": "Bureaucracy" },
+        "craft": { "name": "Craft" },
+        "dodge": { "name": "Dodge" },
+        "integrity": { "name": "Integrity" },
+        "investigation": { "name": "Investigation" },
+        "larceny": { "name": "Larceny" },
+        "linguistics": { "name": "Linguistics" },
+        "lore": { "name": "Lore" },
+        "martialarts": { "name": "Martial Arts" },
+        "medicine": { "name": "Medicine" },
+        "melee": { "name": "Melee" },
+        "occult": { "name": "Occult" },
+        "performance": { "name": "Performance" },
+        "presence": { "name": "Presence" },
+        "resistance": { "name": "Resistance" },
+        "ride": { "name": "Ride" },
+        "sail": { "name": "Sail" },
+        "socialise": { "name": "Socialise" },
+        "stealth": { "name": "Stealth" },
+        "survival": { "name": "Survival" },
+        "thrown": { "name": "Thrown" },
+        "war": { "name": "War" }
+    },
+    "skill":
+    {
+        "sleeping": { "name": "Sleeping" },
+        "farming": { "name": "Farming" },
+        "toughness": { "name": "Toughness" }
+    },
+    "test": "dongs"
+}

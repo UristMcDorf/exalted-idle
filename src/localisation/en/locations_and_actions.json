@@ -1,0 +1,25 @@
+{
+    "loc":
+    {
+        "error": { "name": "Error", "desc": "You shouldn't be here." },
+        "home": { "name": "Home", "desc": "Cozy home." },
+        "sleep": { "name": "Sleep", "desc": "ZZZ" },
+        "field": { "name": "Field", "desc": "Crops to be farmed." },
+        "gentle_farm": { "name": "Farm", "desc": "You're farming with care." },
+        "intense_farm": { "name": "Farm", "desc": "You're farming the shit outta these crops." }
+    },
+    "action":
+    {
+        "move":
+        {
+            "error-home": { "text": "Spawn at home" },
+            "home-field": { "text": "Exit home" },
+            "home-sleep": { "text": "Take a nap" },
+            "sleep-home": { "text": "Wake up" },
+            "field-home": { "text": "Return home" },
+            "field-gentle_farm": { "text": "Farm gently" },
+            "field-intense_farm": { "text": "Farm with INTENSITY" },
+            "farm-field": { "text": "Stop farming" }
+        }
+    }
+}

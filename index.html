@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang=”en” manifest="/cache.appcache">
+<head>
+<title>Exalted Idle</title>
+<meta charset="utf-8">
+<link rel="stylesheet" rel="noopener" target="_blank" href="styles.css">
+
+<script src="node_modules/hacktimer/HackTimer.js" type="module"></script>
+<script src="dist/main.js" type="module"></script>
+
+</head>
+
+<body class="main">
+
+<!-- Tooltip -->
+<div id="tooltip" class="tooltip">
+    tooltip not set
+</div>
+
+<!-- Left panel -->
+<div id="status_panel" class="main_grid_status_pane">
+    <div class="status_container">
+        <input id="name_pane" class="name_pane" value="You" type="text" maxlength="28" placeholder="Your name (max 28)">
+        </input>
+        <div class="progress_bar_container">
+            <div id="progress_bar_filled.health" class="progress_bar_filled health_progress_bar_filled_color" style="flex: 100%;">
+            </div>
+            <div id="progress_bar_missing.health" class="progress_bar_missing health_progress_bar_missing_color" style="flex: 0%;">
+            </div>
+            <div id="progress_bar_label.health" class="progress_bar_label">
+                Health: 100/100
+            </div>
+        </div>
+        <div class="progress_bar_container">
+            <div id="progress_bar_filled.vigour" class="progress_bar_filled vigour_progress_bar_filled_color" style="flex: 100%;">
+            </div>
+            <div id="progress_bar_missing.vigour" class="progress_bar_missing vigour_progress_bar_missing_color" style="flex: 0%;">
+            </div>
+            <div id="progress_bar_label.vigour" class="progress_bar_label">
+                Vigour: 100/100
+            </div>
+        </div>
+        <div class="progress_bar_container">
+            <div id="progress_bar_filled.essence" class="progress_bar_filled essence_progress_bar_filled_color" style="flex: 100%;">
+            </div>
+            <div id="progress_bar_missing.essence" class="progress_bar_missing essence_progress_bar_missing_color" style="flex: 0%;">
+            </div>
+            <div id="progress_bar_label.essence" class="progress_bar_label">
+                Essence: ???
+            </div>
+        </div>
+    </div>
+    <div id="attribute_grid" class="attribute_grid">
+    </div>
+</div>
+<div id="skill_pane" class="main_panel_element box main_grid_left_pane">
+    <div style="text-indent: 0px; border-style: dotted; border-width: 1px 0px; border-color: var(--box-border-color); font-size: larger; text-align: center;">Abilities</div>
+</div>
+<div id="left_main_panel_tab_switcher" class="box tab_switcher main_grid_left_tabs">
+    <a class="tab_button tab_button_selected">
+        Abilities
+    </a>
+    <a class="tab_button tab_button_unselected">
+        Inventory
+    </a>
+</div>
+
+<!-- Middle panel -->
+<div id="time_weather_panel" class="time_weather_panel main_grid_time_weather">
+    <!-- <div id="display.timeline" class="timeline_display"><img src="./res/timeline.png" class="timeline_img"><img src="./res/timeline.png" class="timeline_img"></div> -->
+    <div id="display.time" class="time_display">00:00, Monday, 1, Waning Fire, 748 BC</div>
+</div>
+<div id="mid_pane" class="main_panel_element box main_grid_mid_pane">
+    <div id="location_content_panel" class="location_content_panel">
+        <div id="location_description_panel">
+            Quick brown fox, sleeping dog, you know the drill        
+        </div>
+        <div id="location_effect_displays">
+        </div>
+    </div>
+    <div id="actions_container" class="actions_container">
+        <div id="action_box_1" class="action_button">
+            Action 1
+        </div>
+        <div id="action_box_2" class="action_button">
+            Action 2
+        </div>
+        <div id="action_box_3" class="action_button">
+            Action 3
+        </div>
+    </div>
+</div>
+<div id="middle_main_panel_tab_switcher" class="box tab_switcher main_grid_mid_tabs">
+    <a class="tab_button tab_button_selected">
+        Local
+    </a>
+    <a class="tab_button tab_button_unselected">
+        Actions
+    </a>
+    <a class="tab_button tab_button_unselected">
+        Crafting
+    </a>
+    <a class="tab_button tab_button_unselected">
+        Lore
+    </a>
+    <a class="tab_button tab_button_unselected">
+        Schedule
+    </a>
+</div>
+
+<!-- Right panel -->
+<div id="log_container" class="log_container main_panel_element box main_grid_right_pane">
+</div>
+<div id="right_main_panel_tab_switcher" class="box tab_switcher main_grid_right_tabs">
+    <a id="log_filter.activity" class="tab_button filter_button_selected">
+        Activity
+    </a>
+    <a id="log_filter.levels" class="tab_button filter_button_selected">
+        Levels
+    </a>
+    <a id="log_filter.misc" class="tab_button filter_button_selected">
+        Misc
+    </a>
+</div>
+
+<div class="main_grid_meta">
+    <a id="save_button" class="meta_button">
+        Save
+    </a>
+    <a id="load_button" class="meta_button">
+        Load
+    </a>
+    <!-- Right-aligned part; goes right to left! -->
+    <a id="settings_button" class="meta_button" style="float: right;">
+        Settings
+    </a>
+    <a href="./info_and_changelog.html" target="_blank" class="meta_button fake_link" style="float: right;">
+        v0.0.1
+    </a>
+    <a id="debug_clear_button" class="meta_button" style="float: right;">
+        DEBUG: clear local save
+    </a>
+    <a id="debug_run_debug_function" class="meta_button" style="float: right;">
+        DEBUG: run debug f
+    </a>
+</div>
+</body>
+</html>

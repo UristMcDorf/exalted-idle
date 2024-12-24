@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "@types/yaml": "^1.9.6",
+    "ts-loader": "^9.5.1",
+    "yaml": "^2.6.1"
+  },
+  "dependencies": {
+    "@types/node": "^22.10.1",
+    "hacktimer": "^1.1.3"
+  }
+}
