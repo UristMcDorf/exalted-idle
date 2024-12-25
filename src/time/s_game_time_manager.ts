@@ -31,7 +31,7 @@ export class GameTimeManager implements ISaveLoadAble
 
         this.timeMultipliers = new Set<TimeMultiplier>();
 
-        saveLoadAbleList.set(this.saveId, this);
+        saveLoadAbleList.add(this);
     }
 
     update(): number

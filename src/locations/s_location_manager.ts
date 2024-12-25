@@ -30,7 +30,7 @@ export class LocationManager implements ISaveLoadAble, IUpdates
 
         this.moveToLocation("home");
 
-        saveLoadAbleList.set(this.saveId, this);
+        saveLoadAbleList.add(this);
         updatesList.add(this);
     }
 

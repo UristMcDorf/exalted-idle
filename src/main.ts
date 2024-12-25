@@ -11,7 +11,7 @@ import { StatManager } from "./stats/s_stat_manager.js";
 import { DisplayManager } from "./s_display_manager.js";
 import { Tooltip } from "./s_tooltip.js";
 
-export const saveLoadAbleList: Map<string, ISaveLoadAble> = new Map<string, ISaveLoadAble>();
+export const saveLoadAbleList: Set<ISaveLoadAble> = new Set<ISaveLoadAble>();
 export const updatesList: Set<IUpdates> = new Set<IUpdates>();
 
 /* BEGIN - HTML ELEMENTS CONSTANT REFERENCES */
@@ -26,6 +26,7 @@ export const updatesList: Set<IUpdates> = new Set<IUpdates>();
 export const S_localisationManager: LocalisationManager = new LocalisationManager();
 await loadLocalisation(); // must be done before the others because they rely on it to provide strings
 
+// TODO: initialise with loaded values for ISaveLoadAbles
 export const S_gameTimeManager: GameTimeManager = new GameTimeManager();
 export const S_logManager: LogManager = new LogManager();
 export const S_characterStateManager: CharacterStateManager = new CharacterStateManager();
@@ -91,18 +92,17 @@ function load(): void
 
     let map = new Map(Object.entries(JSON.parse(sourceString)));
 
-    for(const [key, value] of map.entries())
+    for(const saveLoadAble of saveLoadAbleList)
     {
-        let saveLoadAble: ISaveLoadAble | undefined = saveLoadAbleList.get(key);
+        const data: Object | unknown | undefined = map.get(saveLoadAble.saveId);
 
-        if(saveLoadAble === undefined)
+        if(data === undefined)
         {
-            console.error(`Failed to access ISaveLoadAble by id: ${key}`);
-
+            console.warn(`No save data for "${saveLoadAble.saveId}".`)
             continue;
         }
 
-        saveLoadAble.load(value as Object);
+        saveLoadAble.load(data!);
     }
 
     return;
@@ -115,5 +115,3 @@ function clearSave(): void
 
 // START
 run();
-
-export { debugFlag };

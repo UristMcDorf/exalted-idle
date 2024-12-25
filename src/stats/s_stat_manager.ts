@@ -57,7 +57,7 @@ export class StatManager implements ISaveLoadAble
             H_attributeContainer.appendChild(attributeContainer.H_container);
         })
 
-        saveLoadAbleList.set(this.saveId, this);
+        saveLoadAbleList.add(this);
     }
 
     gainSkill(id: string, amount: number)

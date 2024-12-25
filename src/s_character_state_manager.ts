@@ -99,7 +99,7 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
             [ResourceType.Vigour, new Resource(100, 0, 100, 1, new ProgressBar(ResourceType.Vigour, 100, 100))]
         ])
 
-        saveLoadAbleList.set(this.saveId, this);
+        saveLoadAbleList.add(this);
         updatesList.add(this);
     }
 
