@@ -14,7 +14,7 @@ export class StatManager implements ISaveLoadAble
 
     constructor()
     {
-        const H_skillPane: HTMLElement = document.getElementById("skill_pane")!;
+        const H_skillPane: HTMLElement = document.getElementById(`left_main_panel.tab.abilities`)!;
 
         this.abilityList = new Map<Ability, AbilityContainer>();
 

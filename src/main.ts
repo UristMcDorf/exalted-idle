@@ -8,6 +8,7 @@ import { LocationManager } from "./locations/s_location_manager.js";
 import { LogManager } from "./s_log_manager.js";
 import { CharacterStateManager } from "./s_character_state_manager.js";
 import { StatManager } from "./stats/s_stat_manager.js";
+import { DisplayManager } from "./s_display_manager.js";
 import { Tooltip } from "./s_tooltip.js";
 
 const saveLoadAbleList: Map<string, ISaveLoadAble> = new Map<string, ISaveLoadAble>();
@@ -30,6 +31,7 @@ export const S_logManager: LogManager = new LogManager();
 export const S_characterStateManager: CharacterStateManager = new CharacterStateManager();
 export const S_statManager: StatManager = new StatManager();
 export const S_locationManager: LocationManager = new LocationManager();
+export const s_displayManager: DisplayManager = new DisplayManager();
 export const S_tooltip: Tooltip = new Tooltip();
 
 /* END - SINGLETON CONSTANT REFERENCES */

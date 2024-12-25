@@ -456,3 +456,13 @@ input:focus
 {
     height: var(--time-weather-display-height);
 }
+
+.tab_header
+{
+    text-indent: 0px;
+    border-style: dotted;
+    border-width: 1px 0px;
+    border-color: var(--box-border-color);
+    font-size: larger;
+    text-align: center;
+}

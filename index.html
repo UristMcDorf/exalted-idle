@@ -53,14 +53,18 @@
     <div id="attribute_grid" class="attribute_grid">
     </div>
 </div>
-<div id="skill_pane" class="main_panel_element box main_grid_left_pane">
-    <div style="text-indent: 0px; border-style: dotted; border-width: 1px 0px; border-color: var(--box-border-color); font-size: larger; text-align: center;">Abilities</div>
+<div id="left_main_panel.tab.abilities" class="main_panel_element box main_grid_left_pane">
+    <div class="tab_header">Abilities</div>
+</div>
+<div id="left_main_panel.tab.inventory" class="main_panel_element box main_grid_left_pane" style="display: none;">
+    <div class="tab_header">Equipment</div>
+    <div class="tab_header">Inventory</div>
 </div>
 <div id="left_main_panel_tab_switcher" class="box tab_switcher main_grid_left_tabs">
-    <a class="tab_button tab_button_selected">
+    <a id="left_main_panel.tab_button.abilities" class="tab_button tab_button_selected">
         Abilities
     </a>
-    <a class="tab_button tab_button_unselected">
+    <a id="left_main_panel.tab_button.inventory" class="tab_button tab_button_unselected">
         Inventory
     </a>
 </div>
@@ -91,19 +95,19 @@
     </div>
 </div>
 <div id="middle_main_panel_tab_switcher" class="box tab_switcher main_grid_mid_tabs">
-    <a class="tab_button tab_button_selected">
+    <a id="middle_main_panel.tab_button.local" class="tab_button tab_button_selected">
         Local
     </a>
-    <a class="tab_button tab_button_unselected">
+    <a id="middle_main_panel.tab_button.actions" class="tab_button tab_button_unselected">
         Actions
     </a>
-    <a class="tab_button tab_button_unselected">
+    <a id="middle_main_panel.tab_button.crafting" class="tab_button tab_button_unselected">
         Crafting
     </a>
-    <a class="tab_button tab_button_unselected">
+    <a id="middle_main_panel.tab_button.lore" class="tab_button tab_button_unselected">
         Lore
     </a>
-    <a class="tab_button tab_button_unselected">
+    <a id="middle_main_panel.tab_button.schedule" class="tab_button tab_button_unselected">
         Schedule
     </a>
 </div>
