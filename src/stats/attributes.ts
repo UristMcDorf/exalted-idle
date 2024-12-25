@@ -43,16 +43,16 @@ export class AttributeContainer implements IStringUpdate
     {
         //<span id="attribute_label_name.strength">Str:</span> 
         let container: HTMLDivElement = document.createElement("div");
-        container.id = "attribute_label." + this.attribute;
+        container.id = `attribute_label.${this.attribute}`;
         
         let shortNameSpan: HTMLSpanElement = document.createElement("span");
-        shortNameSpan.id = "attribute_label_name." + this.attribute;
+        shortNameSpan.id = `attribute_label_name.${this.attribute}`;
         shortNameSpan.innerHTML = S_localisationManager.getString(`attribute.${this.attribute}.short_name`);
         this.H_labelName = shortNameSpan;
 
         let valueSpan: HTMLSpanElement = document.createElement("span");
-        valueSpan.id = "attribute_label_value." + this.attribute;
-        valueSpan.className = "attribute_grid_item_value";
+        valueSpan.id = `attribute_label_value.${this.attribute}`;
+        valueSpan.className = `attribute_grid_item_value`;
         valueSpan.innerHTML = this.value.toString();
         this.H_labelValue = valueSpan;
 

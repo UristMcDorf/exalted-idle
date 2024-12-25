@@ -15,7 +15,8 @@ export class StatManager implements ISaveLoadAble
 
     constructor()
     {
-        const H_skillPane: HTMLElement = document.getElementById(`left_main_panel.tab.abilities`)!;
+        // TODO: only create skill containers when necessary? Will get bloated and inefficient otherwise, possibly
+        const H_abilitiesPane: HTMLElement = document.getElementById(`abilities_pane`)!;
 
         this.abilityList = new Map<Ability, AbilityContainer>();
 
@@ -25,7 +26,7 @@ export class StatManager implements ISaveLoadAble
 
             this.abilityList.set(value, abilityContainer);
 
-            H_skillPane.appendChild(abilityContainer.H_container);
+            H_abilitiesPane.appendChild(abilityContainer.H_container);
         })
 
         this.skillList = new Map<string, Skill>();

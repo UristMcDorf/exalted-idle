@@ -10,6 +10,7 @@ import { CharacterStateManager } from "./s_character_state_manager.js";
 import { StatManager } from "./stats/s_stat_manager.js";
 import { DisplayManager } from "./s_display_manager.js";
 import { Tooltip } from "./s_tooltip.js";
+import { InventoryManager } from "./items/s_inventory_manager.js";
 
 export const saveLoadAbleList: Set<ISaveLoadAble> = new Set<ISaveLoadAble>();
 export const updatesList: Set<IUpdates> = new Set<IUpdates>();
@@ -34,6 +35,7 @@ export const S_statManager: StatManager = new StatManager();
 export const S_locationManager: LocationManager = new LocationManager();
 export const s_displayManager: DisplayManager = new DisplayManager();
 export const S_tooltip: Tooltip = new Tooltip();
+export const S_inventoryManager: InventoryManager = new InventoryManager();
 
 /* END - SINGLETON CONSTANT REFERENCES */
 

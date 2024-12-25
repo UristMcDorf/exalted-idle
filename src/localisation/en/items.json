@@ -1,0 +1,7 @@
+{
+    "item":
+    {
+        "default": { "name": "ERROR", "desc": "You shouldn't have this." },
+        "stick": { "name": "Stick", "desc": "Splintery stick. There are many of these." }
+    }
+}

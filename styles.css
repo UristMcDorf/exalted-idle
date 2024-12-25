@@ -457,3 +457,10 @@ input:focus
 .equip_grid_offhand { grid-area: offhand; }
 .equip_grid_acc1 { grid-area: acc1; }
 .equip_grid_acc2 { grid-area: acc2; }
+
+.inventory_entry_amount
+{
+    text-align: right;
+    float: right;
+    margin-right: 4px;
+}

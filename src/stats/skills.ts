@@ -125,40 +125,40 @@ export class Skill implements IStringUpdate
 
     makeContainer(): HTMLDivElement
     {
-        let container: HTMLDivElement = document.createElement("div");
+        const container: HTMLDivElement = document.createElement("div");
 
-        container.id = "skill_container." + this.id;
-        container.className = "skill_container";
+        container.id = `skill_container.${this.id}`;
+        container.className = `skill_container`;
 
         // label
-        let labelDiv: HTMLDivElement = document.createElement("div");
+        const labelDiv: HTMLDivElement = document.createElement("div");
 
-        let nameSpan: HTMLSpanElement = document.createElement("span");
-        nameSpan.id = "skill_label.name." + this.id;
+        const nameSpan: HTMLSpanElement = document.createElement("span");
+        nameSpan.id = `skill_label.name.${this.id}`;
         nameSpan.innerHTML = S_localisationManager.getString(`skill.${this.id}.name`);
         this.H_labelName = nameSpan;
 
-        let levelSpan: HTMLSpanElement = document.createElement("span");
-        levelSpan.id = "skill_label.level." + this.id;
-        levelSpan.className = "skill_label_level";
+        const levelSpan: HTMLSpanElement = document.createElement("span");
+        levelSpan.id = `skill_label.level.${this.id}`;
+        levelSpan.className = `skill_label_level`;
         levelSpan.innerHTML = this.levelString();
         this.H_labelLevel = levelSpan;
 
         labelDiv.append(nameSpan, " ", levelSpan);
 
         // progress bar
-        let progressBarDiv: HTMLDivElement = document.createElement("div");
+        const progressBarDiv: HTMLDivElement = document.createElement("div");
         
-        progressBarDiv.className = "progress_bar_container";
-        progressBarDiv.style.height = "4px";
+        progressBarDiv.className = `progress_bar_container`;
+        progressBarDiv.style.height = `4px`;
 
-        let progressBarFilledDiv: HTMLDivElement = document.createElement("div");
-        progressBarFilledDiv.id = "progress_bar_filled.skill." + this.id;
-        progressBarFilledDiv.className = "progress_bar_filled skill_progress_bar_filled_color";
+        const progressBarFilledDiv: HTMLDivElement = document.createElement("div");
+        progressBarFilledDiv.id = `progress_bar_filled.skill.${this.id}`;
+        progressBarFilledDiv.className = `progress_bar_filled skill_progress_bar_filled_color`;
 
-        let progressBarMissingDiv: HTMLDivElement = document.createElement("div");
-        progressBarMissingDiv.id = "progress_bar_missing.skill." + this.id;
-        progressBarMissingDiv.className = "progress_bar_missing skill_progress_bar_missing_color";
+        const progressBarMissingDiv: HTMLDivElement = document.createElement("div");
+        progressBarMissingDiv.id = `progress_bar_missing.skill.${this.id}`;
+        progressBarMissingDiv.className = `progress_bar_missing skill_progress_bar_missing_color`;
 
         progressBarDiv.appendChild(progressBarFilledDiv);
         progressBarDiv.appendChild(progressBarMissingDiv);
@@ -166,7 +166,7 @@ export class Skill implements IStringUpdate
         container.appendChild(labelDiv);
         container.appendChild(progressBarDiv);
 
-        this.progressBar = new ProgressBar("skill.name." + this.id, 0, this.baseXpPerLevel, progressBarFilledDiv, progressBarMissingDiv);
+        this.progressBar = new ProgressBar(`skill.name.${this.id}`, 0, this.baseXpPerLevel, progressBarFilledDiv, progressBarMissingDiv);
 
         return container;
     }
