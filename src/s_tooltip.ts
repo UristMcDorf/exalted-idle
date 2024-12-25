@@ -27,7 +27,7 @@ export class Tooltip implements IUpdates
         /* tooltip end */
     }
 
-    update(): void
+    update(minutesPassed: number): void
     {
         if(this.stringSource)
         {
@@ -39,7 +39,7 @@ export class Tooltip implements IUpdates
     {
         this.stringSource = stringSource;
         this.setVisibility(true);
-        this.update();
+        this.update(0);
     }
 
     setVisibility(value: boolean): void

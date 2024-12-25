@@ -1,5 +1,5 @@
 import { ActionType } from "../../actions/actions.js";
-import { ResourceType } from "../../s_character_state_manager.js";
+import { ResourceRegenMultiplier, ResourceType } from "../../s_character_state_manager.js";
 import { LocationEffectType } from "../location_effects/location_effects.js";
 
 export interface LocationDBEntry
@@ -31,6 +31,8 @@ export interface LocationEffectDBEntry
     timeMultiplier?: number;
 
     //LocationEffectType.AdjustResourcesFlat
+    adjustResourcesFlatList?: Map<ResourceType, number>;
+
     //LocationEffectType.AdjustResourcesMulti
-    adjustResourcesList?: Map<ResourceType, number>;
+    adjustResourcesMultiList?: Map<ResourceType, ResourceRegenMultiplier>;
 }

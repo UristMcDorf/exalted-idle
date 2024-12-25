@@ -8,5 +8,5 @@ export interface ISaveLoadAble
 
 export interface IUpdates
 {
-    update(): void;
+    update(minutes: number): void;
 }

@@ -9,9 +9,9 @@ export enum ResourceType
     Essence = "essence"
 }
 
-export interface ResourceRegenModifier
+export interface ResourceRegenMultiplier
 {
-    modifier: number;
+    multiplier: number;
 }
 
 class Resource
@@ -21,7 +21,7 @@ class Resource
     maxValue: number;
 
     baseRegen: number;
-    regenModifiers: Set<ResourceRegenModifier>;
+    regenModifiers: Set<ResourceRegenMultiplier>;
     
     progressBar: ProgressBar;
 
@@ -31,7 +31,7 @@ class Resource
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.baseRegen = baseRegen;
-        this.regenModifiers = new Set<ResourceRegenModifier>();
+        this.regenModifiers = new Set<ResourceRegenMultiplier>();
         this.progressBar = progressBar;
     }
 
@@ -56,7 +56,7 @@ class Resource
         return adjustedValue >= this.minValue && adjustedValue <= this.maxValue;
     }
 
-    regen(): void
+    regen(times: number): void
     {
         let totalRegen: number = this.baseRegen;
 
@@ -64,18 +64,18 @@ class Resource
         // I don't think it's too expensive, but maybe a robust system of adjustments when necessary is better
         for(const regenModifier of this.regenModifiers)
         {
-            totalRegen *= regenModifier.modifier;
+            totalRegen *= regenModifier.multiplier;
         }
 
-        this.adjust(totalRegen);
+        this.adjust(totalRegen * times);
     }
 
-    registerModifier(regenModifier: ResourceRegenModifier): void
+    registerModifier(regenModifier: ResourceRegenMultiplier): void
     {
         this.regenModifiers.add(regenModifier);
     }
 
-    unregisterModifier(regenModifier: ResourceRegenModifier): void
+    unregisterModifier(regenModifier: ResourceRegenMultiplier): void
     {
         this.regenModifiers.delete(regenModifier);
     }
@@ -93,11 +93,11 @@ export class CharacterStateManager implements IUpdates
         ])
     }
 
-    update(): void
+    update(minutesPassed: number): void
     {
         for(const [key, value] of this.resources)
         {
-            value.regen();
+            value.regen(minutesPassed);
         }
     }
 
@@ -109,5 +109,15 @@ export class CharacterStateManager implements IUpdates
     canAdjustResource(type: ResourceType, amount: number): boolean
     {
         return this.resources.get(type)!.canAdjust(amount);
+    }
+
+    registerModifier(resource: ResourceType, regenModifier: ResourceRegenMultiplier): void
+    {
+        this.resources.get(resource)!.regenModifiers.add(regenModifier);
+    }
+
+    unregisterModifier(resource: ResourceType, regenModifier: ResourceRegenMultiplier): void
+    {
+        this.resources.get(resource)!.regenModifiers.delete(regenModifier);
     }
 }

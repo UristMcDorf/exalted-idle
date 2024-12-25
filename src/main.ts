@@ -26,7 +26,7 @@ const updatesList: Set<IUpdates> = new Set<IUpdates>();
 export const S_localisationManager: LocalisationManager = new LocalisationManager();
 await loadLocalisation(); // must be done before the others because they rely on it to provide strings
 
-const S_gameTime: GameTimeManager = new GameTimeManager();
+export const S_gameTimeManager: GameTimeManager = new GameTimeManager();
 export const S_logManager: LogManager = new LogManager();
 export const S_characterStateManager: CharacterStateManager = new CharacterStateManager();
 export const S_statManager: StatManager = new StatManager();
@@ -39,11 +39,10 @@ export const S_tooltip: Tooltip = new Tooltip();
 // initial setup goes here
 function run()
 {
-    saveLoadAbleList.set(S_gameTime.saveId, S_gameTime);
+    saveLoadAbleList.set(S_gameTimeManager.saveId, S_gameTimeManager);
     saveLoadAbleList.set(S_statManager.saveId, S_statManager);
     saveLoadAbleList.set(S_locationManager.saveId, S_locationManager);
 
-    updatesList.add(S_gameTime);
     updatesList.add(S_locationManager);
     updatesList.add(S_characterStateManager);
     updatesList.add(S_tooltip);
@@ -61,17 +60,15 @@ function run()
 
 function update(): void
 {
+    const minutesPassed = S_gameTimeManager.update();
+
     for(const updates of updatesList)
     {
-        updates.update();
+        updates.update(minutesPassed);
     }
 
+    // TODO: might want to separate gametime updates and display updates
     setTimeout(update, tickrate); // can probably be done in a better way!
-}
-
-export function getTickRateMultiplier(): number
-{
-    return 1; // TODO duh
 }
 
 function save(): void

@@ -33,12 +33,12 @@ export class Location
         }
     }
 
-    update(): void
+    update(minutesPassed: number): void
     {
         for(const effect of this.effects)
         {
             if(!effect.allowContinue()) return;
-            effect.update();
+            effect.update(minutesPassed);
         }
     }
     

@@ -30,7 +30,7 @@ export const DB_Location: Set<LocationDBEntry> = new Set<LocationDBEntry>([
             // funnily enough there's probably going to be a separate Bed type or something instead tho
             { visible: false, type: LocationEffectType.SkillGain, skillGainId: "sleeping", skillGainAmount: 1 },
             { visible: false, type: LocationEffectType.TimeMultiplier, timeMultiplier: 5 },
-            { visible: false, type: LocationEffectType.AdjustResourcesMulti, adjustResourcesList: new Map([[ResourceType.Health, 2],[ResourceType.Vigour, 4]]) }
+            { visible: false, type: LocationEffectType.AdjustResourcesMulti, adjustResourcesMultiList: new Map([[ResourceType.Health, { multiplier: 2}],[ResourceType.Vigour, { multiplier: 4 }]]) }
         ])
     },
     {
@@ -57,7 +57,7 @@ export const DB_Location: Set<LocationDBEntry> = new Set<LocationDBEntry>([
             { type: ActionType.Move, moveFrom: "farm", moveWhere: "field" }
         ]),
         locationEffectList: new Set<LocationEffectDBEntry>([
-            { visible: true, type: LocationEffectType.AdjustResourcesFlat, adjustResourcesList: new Map([[ResourceType.Health, -1], [ResourceType.Vigour, -4]]) },
+            { visible: true, type: LocationEffectType.AdjustResourcesFlat, adjustResourcesFlatList: new Map([[ResourceType.Health, -1], [ResourceType.Vigour, -4]]) },
             { visible: true, type: LocationEffectType.SkillGain, skillGainId: "farming", skillGainAmount: 5 }
         ])
     }

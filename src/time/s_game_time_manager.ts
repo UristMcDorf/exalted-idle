@@ -1,11 +1,15 @@
 // This includes the calendar
 
 import { EDate } from "./exalted_date.js";
-import { getTickRateMultiplier } from "../main.js"
-import { ISaveLoadAble, IUpdates } from "../global_interfaces.js";
+import { ISaveLoadAble } from "../global_interfaces.js";
 import { tickrate } from "../global_statics.js";
 
-export class GameTimeManager implements ISaveLoadAble, IUpdates
+export interface TimeMultiplier
+{
+    timeMultiplier: number;
+}
+
+export class GameTimeManager implements ISaveLoadAble
 {
     date: EDate = new EDate(0, 10, 0, 0, 5, 760); // remember that all starts at 0; so new EDate(0, 10, 0, 0, 5, 760) is 10:00 1st Resplendent Water RY 760
     H_timeDisplay: HTMLElement = document.getElementById("display.time")!;
@@ -13,11 +17,17 @@ export class GameTimeManager implements ISaveLoadAble, IUpdates
     lastUpdateTime: number = Date.now();
     deltaTime: number = 0;
 
-    public update(): void
-    {
-        let newTime: number = Date.now();
+    timeMultipliers: Set<TimeMultiplier> = new Set<TimeMultiplier>();
 
-        this.deltaTime += (newTime - this.lastUpdateTime) * getTickRateMultiplier();
+    //TODO: move initialisation to constructor for consistency
+
+    update(): number
+    {
+        let minutesPassed: number = 0;
+
+        const newTime: number = Date.now();
+
+        this.deltaTime += (newTime - this.lastUpdateTime) * this.getTimeMultiplier();
 
         this.lastUpdateTime = newTime;
 
@@ -26,9 +36,35 @@ export class GameTimeManager implements ISaveLoadAble, IUpdates
             this.date.increment(1);
 
             this.deltaTime -= tickrate;
+
+            minutesPassed++;
         }
 
         this.H_timeDisplay.innerHTML = this.date.toString();
+
+        return minutesPassed;
+    }
+
+    getTimeMultiplier(): number
+    {
+        let returnMultiplier: number = 1;
+
+        for(const multiplier of this.timeMultipliers)
+        {
+            returnMultiplier *= multiplier.timeMultiplier;
+        }
+
+        return returnMultiplier;
+    }
+
+    registerTimeMultiplier(multiplier: TimeMultiplier): void
+    {
+        this.timeMultipliers.add(multiplier);
+    }
+
+    unregisterTimeMultiplier(multiplier: TimeMultiplier): void
+    {
+        this.timeMultipliers.delete(multiplier);
     }
 
     // ISaveLoadAble implementation block

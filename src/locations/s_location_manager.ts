@@ -44,6 +44,8 @@ export class LocationManager implements ISaveLoadAble, IUpdates
 
     moveToLocation(id: string): void
     {
+        this.currentLocation?.onExit();
+
         this.currentLocation = this.locationList.get(id)!;
     
         this.H_locationDescriptionPanel.innerHTML = S_localisationManager.getString(`loc.${this.currentLocation.id}.desc`);
@@ -85,9 +87,9 @@ export class LocationManager implements ISaveLoadAble, IUpdates
 
     // IUpdates implementation block
 
-    update(): void
+    update(minutesPassed: number): void
     {
-        this.currentLocation.update();
+        this.currentLocation.update(minutesPassed);
     }
 
     // ISaveLoadAble implementation block
