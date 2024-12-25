@@ -1,4 +1,5 @@
 import { IUpdates } from "./global_interfaces.js";
+import { updatesList } from "./main.js";
 
 export interface IStringUpdate
 {
@@ -25,6 +26,8 @@ export class Tooltip implements IUpdates
             H_tooltipContainer.style.left = (e.clientX + offset) + "px";
         }
         /* tooltip end */
+
+        updatesList.add(this);
     }
 
     update(minutesPassed: number): void

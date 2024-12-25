@@ -4,6 +4,7 @@ import { Ability } from "./abilities.js";
 import { Attribute, AttributeContainer } from "./attributes.js";
 import { ISaveLoadAble } from "../global_interfaces.js";
 import { DB_Skill, SkillDBEntry } from "./db/skill_db.js";
+import { saveLoadAbleList } from "../main.js";
 
 export class StatManager implements ISaveLoadAble
 {
@@ -55,6 +56,8 @@ export class StatManager implements ISaveLoadAble
 
             H_attributeContainer.appendChild(attributeContainer.H_container);
         })
+
+        saveLoadAbleList.set(this.saveId, this);
     }
 
     gainSkill(id: string, amount: number)
@@ -88,6 +91,7 @@ export class StatManager implements ISaveLoadAble
 
     load(data: Object): boolean
     {
+        let returnValue: boolean = true;
         let map = new Map(Object.entries(data));
 
         for(const [key, value] of map.entries())
@@ -98,12 +102,13 @@ export class StatManager implements ISaveLoadAble
             {
                 console.error(`Failed to load skill: ${key}`);
 
-                return false;
+                returnValue = false;
+                continue;
             }
 
             skill.import(value as number);
         }
 
-        return true;
+        return returnValue;
     }
 }

@@ -1,4 +1,5 @@
-import { IUpdates } from "./global_interfaces.js";
+import { ISaveLoadAble, IUpdates } from "./global_interfaces.js";
+import { saveLoadAbleList, updatesList } from "./main.js";
 import { ProgressBar } from "./progress_bar.js";
 import { Utils } from "./utils.js";
 
@@ -79,10 +80,16 @@ class Resource
     {
         this.regenModifiers.delete(regenModifier);
     }
+
+    updateDisplay(): void
+    {
+        this.progressBar.update();
+    }
 }
 
-export class CharacterStateManager implements IUpdates
+export class CharacterStateManager implements ISaveLoadAble, IUpdates
 {
+
     resources: Map<ResourceType, Resource>;
 
     constructor()
@@ -91,6 +98,9 @@ export class CharacterStateManager implements IUpdates
             [ResourceType.Health, new Resource(100, 0, 100, 0.1, new ProgressBar(ResourceType.Health, 100, 100))],
             [ResourceType.Vigour, new Resource(100, 0, 100, 1, new ProgressBar(ResourceType.Vigour, 100, 100))]
         ])
+
+        saveLoadAbleList.set(this.saveId, this);
+        updatesList.add(this);
     }
 
     update(minutesPassed: number): void
@@ -119,5 +129,53 @@ export class CharacterStateManager implements IUpdates
     unregisterModifier(resource: ResourceType, regenModifier: ResourceRegenMultiplier): void
     {
         this.resources.get(resource)!.regenModifiers.delete(regenModifier);
+    }
+
+    // ISaveLoadAble implementation block
+    saveId: string = "character_state";
+
+    save(): string
+    {
+        let data: string = "";
+
+        for(const [key, value] of this.resources.entries())
+        {
+            data += `"${key}":${value.value},`
+        }
+
+        return `{${data.slice(0, -1)}}`;
+    }
+
+    load(data: Object): boolean
+    {
+        let returnValue: boolean = true;
+        let map = new Map(Object.entries(data));
+
+        for(const [key, value] of map.entries())
+        {
+            let resource: Resource | undefined = this.resources.get(key as ResourceType);
+
+            if(resource === undefined)
+            {
+                console.error(`Failed to load resource: ${key}`);
+
+                returnValue = false;
+                continue;
+            }
+
+            resource.value = value;
+        }
+
+        this.updateDisplay();
+
+        return returnValue;
+    }
+
+    updateDisplay(): void
+    {
+        for(const [key, value] of this.resources)
+        {
+            value.updateDisplay();
+        }
     }
 }

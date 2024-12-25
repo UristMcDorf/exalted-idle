@@ -10,6 +10,7 @@
     --time-weather-panel-bg-color: rgb(243, 215, 162);
 
     --font-color: black;
+    --inactive-font-color: grey;
     --progress-bar-font-color: white;
 
     --progress-bar-color-filled-default: magenta;
@@ -72,52 +73,15 @@
     text-indent: 5px;
 }
 
-.main_grid_status_pane
-{
-    grid-area: status_pane;
-}
-
-.main_grid_left_pane
-{
-    grid-area: left_pane;
-}
-
-.main_grid_left_tabs
-{
-    grid-area: left_tabs;
-}
-
-.main_grid_time_weather
-{
-    grid-area: time_weather;
-}
-
-.main_grid_mid_pane
-{
-    grid-area: mid_pane;
-}
-
-.main_grid_mid_tabs
-{
-    grid-area: mid_tabs;
-}
-
-.main_grid_right_pane
-{
-    grid-area: right_pane;
-}
-
-.main_grid_right_tabs
-{
-    grid-area: right_tabs;
-}
-
-.main_grid_meta
-{
-    grid-area: meta;
-
-    text-indent: 0px;
-}
+.main_grid_status_pane { grid-area: status_pane; }
+.main_grid_left_pane { grid-area: left_pane; }
+.main_grid_left_tabs { grid-area: left_tabs; }
+.main_grid_time_weather { grid-area: time_weather; }
+.main_grid_mid_pane { grid-area: mid_pane; }
+.main_grid_mid_tabs { grid-area: mid_tabs; }
+.main_grid_right_pane { grid-area: right_pane; }
+.main_grid_right_tabs { grid-area: right_tabs; }
+.main_grid_meta { grid-area: meta; text-indent: 0px; }
 
 .attribute_grid
 {
@@ -466,3 +430,30 @@ input:focus
     font-size: larger;
     text-align: center;
 }
+
+.equip_grid
+{
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 100px 100px;
+    grid-template-rows: 20px 20px 20px 20px;
+
+    gap: 0px 0px;
+
+    grid-template-areas: 
+        "head head"
+        "body body"
+        "mainhand offhand"
+        "acc1 acc2";
+
+    text-indent: 0px;
+    text-align: center;
+}
+
+.equip_grid_head { grid-area: head; }
+.equip_grid_body { grid-area: body; }
+.equip_grid_mainhand { grid-area: mainhand; }
+.equip_grid_offhand { grid-area: offhand; }
+.equip_grid_acc1 { grid-area: acc1; }
+.equip_grid_acc2 { grid-area: acc2; }

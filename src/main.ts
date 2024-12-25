@@ -11,8 +11,8 @@ import { StatManager } from "./stats/s_stat_manager.js";
 import { DisplayManager } from "./s_display_manager.js";
 import { Tooltip } from "./s_tooltip.js";
 
-const saveLoadAbleList: Map<string, ISaveLoadAble> = new Map<string, ISaveLoadAble>();
-const updatesList: Set<IUpdates> = new Set<IUpdates>();
+export const saveLoadAbleList: Map<string, ISaveLoadAble> = new Map<string, ISaveLoadAble>();
+export const updatesList: Set<IUpdates> = new Set<IUpdates>();
 
 /* BEGIN - HTML ELEMENTS CONSTANT REFERENCES */
 // currently none
@@ -39,14 +39,6 @@ export const S_tooltip: Tooltip = new Tooltip();
 // initial setup goes here
 function run()
 {
-    saveLoadAbleList.set(S_gameTimeManager.saveId, S_gameTimeManager);
-    saveLoadAbleList.set(S_statManager.saveId, S_statManager);
-    saveLoadAbleList.set(S_locationManager.saveId, S_locationManager);
-
-    updatesList.add(S_locationManager);
-    updatesList.add(S_characterStateManager);
-    updatesList.add(S_tooltip);
-
     document.getElementById("save_button")!.addEventListener("click", evt => save());
     document.getElementById("load_button")!.addEventListener("click", evt => load());
 

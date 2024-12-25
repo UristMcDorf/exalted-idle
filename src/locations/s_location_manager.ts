@@ -1,6 +1,6 @@
 import { Location } from "./location.js";
 import { ISaveLoadAble, IUpdates } from "../global_interfaces.js";
-import { S_localisationManager } from "../main.js";
+import { S_localisationManager, saveLoadAbleList, updatesList } from "../main.js";
 import { DB_Location } from "./db/location_db.js";
 import { LocationDBEntry } from "./db/location_db_interfaces.js";
 
@@ -29,6 +29,9 @@ export class LocationManager implements ISaveLoadAble, IUpdates
         }
 
         this.moveToLocation("home");
+
+        saveLoadAbleList.set(this.saveId, this);
+        updatesList.add(this);
     }
 
     retrieveLocation(id: string): Location

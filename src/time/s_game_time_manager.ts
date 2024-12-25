@@ -3,6 +3,7 @@
 import { EDate } from "./exalted_date.js";
 import { ISaveLoadAble } from "../global_interfaces.js";
 import { tickrate } from "../global_statics.js";
+import { saveLoadAbleList } from "../main.js";
 
 export interface TimeMultiplier
 {
@@ -11,15 +12,27 @@ export interface TimeMultiplier
 
 export class GameTimeManager implements ISaveLoadAble
 {
-    date: EDate = new EDate(0, 10, 0, 0, 5, 760); // remember that all starts at 0; so new EDate(0, 10, 0, 0, 5, 760) is 10:00 1st Resplendent Water RY 760
-    H_timeDisplay: HTMLElement = document.getElementById("display.time")!;
+    date: EDate;
+    H_timeDisplay: HTMLElement;
     
-    lastUpdateTime: number = Date.now();
-    deltaTime: number = 0;
+    lastUpdateTime: number;
+    deltaTime: number;
 
-    timeMultipliers: Set<TimeMultiplier> = new Set<TimeMultiplier>();
+    timeMultipliers: Set<TimeMultiplier>;
 
-    //TODO: move initialisation to constructor for consistency
+    // remember that all starts at 0; so new EDate(0, 10, 0, 0, 5, 760) is 10:00 1st Resplendent Water RY 760
+    constructor(date: EDate = new EDate(0, 10, 0, 0, 5, 760))
+    {
+        this.date = date;
+        this.H_timeDisplay = document.getElementById("display.time")!;
+
+        this.lastUpdateTime = Date.now();
+        this.deltaTime = 0;
+
+        this.timeMultipliers = new Set<TimeMultiplier>();
+
+        saveLoadAbleList.set(this.saveId, this);
+    }
 
     update(): number
     {

@@ -145,7 +145,7 @@ export class LocationEffectAdjustResourcesFlat extends LocationEffect
     {
         for(const [key, value] of this.resourcesList)
         {
-            if(!S_characterStateManager.canAdjustResource(key, value)) return true;
+            if(value < 0 && !S_characterStateManager.canAdjustResource(key, value)) return true;
         }
 
         return false;        
