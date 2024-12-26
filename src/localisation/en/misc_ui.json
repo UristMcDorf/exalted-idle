@@ -6,11 +6,11 @@
     },
     "equip_slots":
     {
-        "head": "Head",
-        "body": "Body",
-        "mainhand": "Main Hand",
-        "offhand": "Offhand",
+        "head": "head",
+        "body": "body",
+        "mainhand": "main hand",
+        "offhand": "offhand",
         "twohand": "ERROR",
-        "acc": "Accessory"
+        "acc": "accessory"
     }
 }
