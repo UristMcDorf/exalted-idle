@@ -82,7 +82,7 @@ export class StatManager implements ISaveLoadAble
     {
         let data: string = "";
 
-        for(const [key, value] of this.skillList.entries())
+        for(const [key, value] of this.skillList)
         {
             data += `"${key}":${value.lifetimeXp},`
         }
@@ -95,7 +95,7 @@ export class StatManager implements ISaveLoadAble
         let returnValue: boolean = true;
         let map = new Map(Object.entries(data));
 
-        for(const [key, value] of map.entries())
+        for(const [key, value] of map)
         {
             let skill: Skill | undefined = this.skillList.get(key);
 

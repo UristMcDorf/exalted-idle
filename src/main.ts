@@ -70,9 +70,9 @@ function save(): void
 {
     let data: string = "";
 
-    for(const [key, value] of saveLoadAbleList.entries())
+    for(const saveLoadAble of saveLoadAbleList)
     {
-        data += `"${key}":${value.save()},`
+        data += `"${saveLoadAble.saveId}":${saveLoadAble.save()},`
     }
 
     localStorage.setItem("local_save", `{${data.slice(0, -1)}}`);
