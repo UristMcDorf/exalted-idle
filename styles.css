@@ -10,7 +10,7 @@
     --time-weather-panel-bg-color: rgb(243, 215, 162);
 
     --font-color: black;
-    --inactive-font-color: grey;
+    --hint-font-color: grey;
     --progress-bar-font-color: white;
 
     --progress-bar-color-filled-default: magenta;
@@ -153,40 +153,13 @@
     transition-duration: 0.2s;
 }
 
-.tab_button_selected
-{
-    background-color: var(--main-panel-bg-color);
-}
-
-.tab_button_unselected
-{
-    background-color: var(--main-panel-bg-inactive-color);    
-}
-
-.tab_button_unselected:hover
-{
-    background-color: var(--button-hover-color);
-}
-
-.filter_button_selected
-{
-    background-color: var(--main-panel-bg-color);
-}
-
-.filter_button_selected:hover
-{
-    background-color: var(--button-hover-color);
-}
-
-.filter_button_unselected
-{
-    background-color: var(--main-panel-bg-inactive-color);    
-}
-
-.filter_button_unselected:hover
-{
-    background-color: var(--button-hover-color);
-}
+.tab_button_selected { background-color: var(--main-panel-bg-color); }
+.tab_button_unselected { background-color: var(--main-panel-bg-inactive-color); }
+.tab_button_unselected:hover { background-color: var(--button-hover-color); }
+.filter_button_selected { background-color: var(--main-panel-bg-color); }
+.filter_button_selected:hover { background-color: var(--button-hover-color); }
+.filter_button_unselected { background-color: var(--main-panel-bg-inactive-color); }
+.filter_button_unselected:hover { background-color: var(--button-hover-color); }
 
 .log_container
 {
@@ -264,45 +237,14 @@ input:focus
     text-indent: 0px;
 }
 
-.health_progress_bar_filled_color
-{
-    background-color: var(--health-bar-color-filled);
-}
-
-.health_progress_bar_missing_color
-{
-    background-color: var(--health-bar-color-missing);
-}
-
-.vigour_progress_bar_filled_color
-{
-    background-color: var(--vigour-bar-color-filled);
-}
-
-.vigour_progress_bar_missing_color
-{
-    background-color: var(--vigour-bar-color-missing);
-}
-
-.essence_progress_bar_filled_color
-{
-    background-color: var(--essence-bar-color-filled);
-}
-
-.essence_progress_bar_missing_color
-{
-    background-color: var(--essence-bar-color-missing);
-}
-
-.skill_progress_bar_filled_color
-{
-    background-color: var(--skill-bar-color-filled);
-}
-
-.skill_progress_bar_missing_color
-{
-    background-color: var(--skill-bar-color-missing);
-}
+.health_progress_bar_filled_color { background-color: var(--health-bar-color-filled); }
+.health_progress_bar_missing_color { background-color: var(--health-bar-color-missing); }
+.vigour_progress_bar_filled_color { background-color: var(--vigour-bar-color-filled); }
+.vigour_progress_bar_missing_color { background-color: var(--vigour-bar-color-missing); }
+.essence_progress_bar_filled_color { background-color: var(--essence-bar-color-filled); }
+.essence_progress_bar_missing_color { background-color: var(--essence-bar-color-missing); }
+.skill_progress_bar_filled_color { background-color: var(--skill-bar-color-filled); }
+.skill_progress_bar_missing_color { background-color: var(--skill-bar-color-missing); }
 
 .invisible
 {
@@ -445,7 +387,7 @@ input:focus
         "head head"
         "body body"
         "mainhand offhand"
-        "acc1 acc2";
+        "acc0 acc1";
 
     text-indent: 0px;
     text-align: center;
@@ -455,12 +397,22 @@ input:focus
 .equip_grid_body { grid-area: body; }
 .equip_grid_mainhand { grid-area: mainhand; }
 .equip_grid_offhand { grid-area: offhand; }
+.equip_grid_acc0 { grid-area: acc0; }
 .equip_grid_acc1 { grid-area: acc1; }
-.equip_grid_acc2 { grid-area: acc2; }
 
 .inventory_entry_amount
 {
     text-align: right;
     float: right;
     margin-right: 4px;
+}
+
+.inactive
+{
+    color: var(--hint-font-color);
+}
+
+::placeholder
+{
+    color: var(--hint-font-color);
 }

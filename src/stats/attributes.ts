@@ -1,5 +1,5 @@
 import { S_localisationManager, S_tooltip } from "../main.js";
-import { IStringUpdate } from "../s_tooltip.js";
+import { ITooltipSource } from "../s_tooltip.js";
 
 // ordered for the sake of easy table population lmao
 export enum Attribute
@@ -15,7 +15,7 @@ export enum Attribute
     Wits = "wits"
 }
 
-export class AttributeContainer implements IStringUpdate
+export class AttributeContainer implements ITooltipSource
 {
     H_container!: HTMLDivElement;
     H_labelName!: HTMLSpanElement;
@@ -35,7 +35,7 @@ export class AttributeContainer implements IStringUpdate
 
         this.tooltip = this.setTooltip();
 
-        this.H_container.addEventListener("mouseover", evt => S_tooltip.setStringSource(this));
+        this.H_container.addEventListener("mouseover", evt => S_tooltip.setTooltipSource(this));
         this.H_container.addEventListener("mouseout", evt => S_tooltip.setVisibility(false)); // TODO: review
     }
 
@@ -61,7 +61,7 @@ export class AttributeContainer implements IStringUpdate
         return container;
     }
 
-    updateStringSource(): string
+    updateTooltipSource(): string
     {
         return this.tooltip;
     }

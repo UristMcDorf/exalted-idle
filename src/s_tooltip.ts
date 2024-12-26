@@ -1,20 +1,20 @@
 import { IUpdates } from "./global_interfaces.js";
 import { updatesList } from "./main.js";
 
-export interface IStringUpdate
+export interface ITooltipSource
 {
-    updateStringSource(): string;
+    updateTooltipSource(): string;
 }
 
 // TODO: make tooltip flip over to the other side if it's going out of bounds
 export class Tooltip implements IUpdates
 {
-    stringSource: IStringUpdate | null;
+    tooltipSource: ITooltipSource | null;
     H_tooltipContainer: HTMLElement;
 
     constructor(H_tooltipContainer: HTMLElement = document.getElementById("tooltip")!)
     {
-        this.stringSource = null;
+        this.tooltipSource = null;
         this.H_tooltipContainer = H_tooltipContainer;
         
         /* tooltip */
@@ -32,15 +32,15 @@ export class Tooltip implements IUpdates
 
     update(minutesPassed: number): void
     {
-        if(this.stringSource)
+        if(this.tooltipSource)
         {
-            this.H_tooltipContainer.innerHTML = this.stringSource.updateStringSource();
+            this.H_tooltipContainer.innerHTML = this.tooltipSource.updateTooltipSource();
         }
     }
 
-    setStringSource(stringSource: IStringUpdate): void
+    setTooltipSource(tooltipSource: ITooltipSource): void
     {
-        this.stringSource = stringSource;
+        this.tooltipSource = tooltipSource;
         this.setVisibility(true);
         this.update(0);
     }
@@ -54,7 +54,7 @@ export class Tooltip implements IUpdates
         else
         {
             this.H_tooltipContainer.style.visibility = "hidden";
-            this.stringSource = null;
+            this.tooltipSource = null;
         }
     }
 }

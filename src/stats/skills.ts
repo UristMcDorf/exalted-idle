@@ -1,11 +1,11 @@
 import { S_localisationManager, S_logManager, S_statManager, S_tooltip } from "../main.js";
 import { ProgressBar } from "../progress_bar.js";
 import { LogCategory } from "../s_log_manager.js";
-import { IStringUpdate } from "../s_tooltip.js";
+import { ITooltipSource } from "../s_tooltip.js";
 import { Ability, AbilityContainer } from "./abilities.js";
 
 
-export class Skill implements IStringUpdate
+export class Skill implements ITooltipSource
 {
     // will be initialised but doesn't understand that
     progressBar!: ProgressBar;
@@ -42,7 +42,7 @@ export class Skill implements IStringUpdate
         
         this.H_container = this.makeContainer();
 
-        this.H_container.addEventListener("mouseover", evt => S_tooltip.setStringSource(this));
+        this.H_container.addEventListener("mouseover", evt => S_tooltip.setTooltipSource(this));
         this.H_container.addEventListener("mouseout", evt => S_tooltip.setVisibility(false)); // TODO: review
 
         this.updateVisibility();
@@ -171,7 +171,7 @@ export class Skill implements IStringUpdate
         return container;
     }
 
-    updateStringSource(): string
+    updateTooltipSource(): string
     {
         return this.currentLevel == this.maxLevel ? `Max level (${this.lifetimeXp} lifetime xp)` : Math.floor(this.xp) + "/" + this.xpToNextLevel() + " to level"; // TOLOC
     }

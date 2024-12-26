@@ -9,5 +9,5 @@ export async function DEBUG_TestRandomStuff()
 {
     if(!debugFlag) return;
 
-    S_inventoryManager.addItem("stick", 1);
+    S_inventoryManager.addItem("debug_ring", 1);
 }

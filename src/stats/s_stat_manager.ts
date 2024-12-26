@@ -27,7 +27,7 @@ export class StatManager implements ISaveLoadAble
             this.abilityList.set(value, abilityContainer);
 
             H_abilitiesPane.appendChild(abilityContainer.H_container);
-        })
+        });
 
         this.skillList = new Map<string, Skill>();
         

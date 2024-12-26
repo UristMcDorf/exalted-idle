@@ -2,6 +2,7 @@ export enum LogCategory
 {
     Activity = "activity",
     Levels = "levels",
+    Loot = "loot",
     Misc = "misc"
 }
 
@@ -17,6 +18,7 @@ export class LogManager
         this.messages = new Map<string, MessageQueueHandler>([
             [LogCategory.Activity, new MessageQueueHandler(LogCategory.Activity, 20)],
             [LogCategory.Levels, new MessageQueueHandler(LogCategory.Levels, 20)],
+            [LogCategory.Loot, new MessageQueueHandler(LogCategory.Loot, 20)],
             [LogCategory.Misc, new MessageQueueHandler(LogCategory.Misc, 20)]
         ]);
     }

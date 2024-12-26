@@ -57,13 +57,14 @@
     <div id="abilities_pane"></div>
 </div>
 <div id="left_main_panel.tab.inventory" class="main_panel_element box main_grid_left_pane" style="display: none;">
+    <div class="tab_header">Equipment</div>
     <div id="equip_grid" class="equip_grid">
-        <div id="equip_grid.head" class="equip_grid_head">head</div>
-        <div id="equip_grid.body" class="equip_grid_body">body</div>
-        <div id="equip_grid.mainhand" class="equip_grid_mainhand">mainhand</div>
-        <div id="equip_grid.offhand" class="equip_grid_offhand">offhand</div>
-        <div id="equip_grid.acc1" class="equip_grid_acc1">acc1</div>
-        <div id="equip_grid.acc2" class="equip_grid_acc2">acc2</div>
+        <div id="equip_grid.head" class="equip_grid_head inactive">head</div>
+        <div id="equip_grid.body" class="equip_grid_body inactive">body</div>
+        <div id="equip_grid.mainhand" class="equip_grid_mainhand inactive">main hand</div>
+        <div id="equip_grid.offhand" class="equip_grid_offhand inactive">offhand</div>
+        <div id="equip_grid.acc0" class="equip_grid_acc0 inactive">accessory</div>
+        <div id="equip_grid.acc1" class="equip_grid_acc1 inactive">accessory</div>
     </div>
     <div class="tab_header">Inventory</div>
     <div id="inventory_pane" style="font-size: smaller;"></div>
@@ -129,6 +130,9 @@
     </a>
     <a id="log_filter.levels" class="tab_button filter_button_selected">
         Levels
+    </a>
+    <a id="log_filter.loot" class="tab_button filter_button_selected">
+        Loot
     </a>
     <a id="log_filter.misc" class="tab_button filter_button_selected">
         Misc

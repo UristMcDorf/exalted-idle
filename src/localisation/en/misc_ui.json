@@ -3,5 +3,14 @@
     {
         "health": "Health",
         "vigour": "Vigour"
+    },
+    "equip_slots":
+    {
+        "head": "Head",
+        "body": "Body",
+        "mainhand": "Main Hand",
+        "offhand": "Offhand",
+        "twohand": "ERROR",
+        "acc": "Accessory"
     }
 }
