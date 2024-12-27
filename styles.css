@@ -55,7 +55,10 @@
 
     position: fixed;
     inset: 4px;
+}
 
+.main_grid
+{
     display: grid;
     grid-template-columns: 200px auto 200px;
     /* Uncomment and remove line below when ready to implement sliding timeline */

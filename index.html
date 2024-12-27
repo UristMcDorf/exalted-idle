@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="main">
+<body class="main main_grid">
 
 <!-- Tooltip -->
 <div id="tooltip" class="tooltip">
@@ -146,6 +146,13 @@
     <a id="load_button" class="meta_button">
         Load
     </a>
+    <a id="export_button" class="meta_button">
+        Export
+    </a>
+    <label id="import_button" class="meta_button" for="import_file">
+        Import
+    </label>
+    <input id="import_file" style="display: none;" type="file" accept="application/JSON">
     <!-- Right-aligned part; goes right to left! -->
     <a id="settings_button" class="meta_button" style="float: right;">
         Settings

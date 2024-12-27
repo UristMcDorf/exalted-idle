@@ -1,6 +1,6 @@
 import { IUpdates, ISaveLoadAble } from "./global_interfaces.js";
 import { DEBUG_TestRandomStuff } from "./DEBUG_testrandomstuff.js";
-import { debugFlag, tickrate } from "./global_statics.js";
+import { debugFlag, tickrate, version } from "./global_statics.js";
 
 import { LocalisationManager } from "./localisation/s_localisation_manager.js"
 import { GameTimeManager } from "./time/s_game_time_manager.js";
@@ -42,13 +42,15 @@ export const S_inventoryManager: InventoryManager = new InventoryManager();
 // initial setup goes here
 function run()
 {
-    document.getElementById("save_button")!.addEventListener("click", evt => save());
-    document.getElementById("load_button")!.addEventListener("click", evt => load());
+    document.getElementById("save_button")!.addEventListener("click", evt => saveLocal());
+    document.getElementById("load_button")!.addEventListener("click", evt => loadLocal());
+    document.getElementById("export_button")!.addEventListener("click", evt => saveExport());
+    document.getElementById("import_file")!.addEventListener("change", evt => loadImport(evt));
 
     debugFlag ? document.getElementById("debug_clear_button")!.addEventListener("click", evt => clearSave()) : document.getElementById("debug_clear_button")!.remove();
     debugFlag ? document.getElementById("debug_run_debug_function")!.addEventListener("click", evt => DEBUG_TestRandomStuff()) : document.getElementById("debug_run_debug_function")!.remove();
 
-    load();
+    loadLocal();
 
     update();
 }
@@ -66,33 +68,71 @@ function update(): void
     setTimeout(update, tickrate); // can probably be done in a better way!
 }
 
-function save(): void
+function saveLocal(): void
 {
-    let data: string = "";
+    localStorage.setItem("local_save", makeSaveString());
+}
+
+function saveExport(): void
+{
+    const a = window.document.createElement("a");
+    a.href = window.URL.createObjectURL(new Blob([makeSaveString()], { type: `application/JSON` })); // no, I don't bother with encoding
+    a.download = `exalted-idle ${Date.now()} save.json`;
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+function makeSaveString(): string
+{
+    let data: string = `"version":"${version}",`;
 
     for(const saveLoadAble of saveLoadAbleList)
     {
         data += `"${saveLoadAble.saveId}":${saveLoadAble.save()},`
     }
 
-    localStorage.setItem("local_save", `{${data.slice(0, -1)}}`);
+    return `{${data.slice(0, -1)}}`;
 }
 
-async function loadLocalisation()
+function loadLocal(): void
 {
-    await S_localisationManager.loadLanguage("en");
-}
-
-function load(): void
-{
-    let sourceString: string | null = localStorage.getItem("local_save");
+    const sourceString: string | null = localStorage.getItem("local_save");
 
     if(sourceString === null)
     {
         return; // no save yet
     }
 
-    let map = new Map(Object.entries(JSON.parse(sourceString)));
+    loadFromString(sourceString);
+
+    return;
+}
+
+function loadImport(event: Event): void
+{
+    const file: File = (event.target as HTMLInputElement).files![0];
+    const reader: FileReader = new FileReader();
+
+    reader.onload = function()
+    {
+        loadFromString(reader.result as string);
+    }
+
+    reader.readAsText(file);
+
+    (event.target as HTMLInputElement).value = ""; // apparently to allow loading the same file more than once
+}
+
+function loadFromString(data: string): void
+{
+    const map = new Map(Object.entries(JSON.parse(data)));
+
+    if(map.get("version") as string != version)
+    {
+        deepLoad(data);
+    }
 
     for(const saveLoadAble of saveLoadAbleList)
     {
@@ -106,8 +146,17 @@ function load(): void
 
         saveLoadAble.load(data!);
     }
+}
 
-    return;
+function deepLoad(data: string): void
+{
+    // stub for when versions change enough to warrant save maintenance
+    // and IG an update popup?
+}
+
+async function loadLocalisation()
+{
+    await S_localisationManager.loadLanguage("en");
 }
 
 function clearSave(): void
