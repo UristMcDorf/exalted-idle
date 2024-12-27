@@ -233,6 +233,22 @@ export class InventoryManager implements ISaveLoadAble
         }
     }
 
+    clear(): void
+    {
+        for(const [key, value] of this.items)
+        {
+            this.removeItem(key, value.amount);
+        }
+    }
+
+    unequipAll(): void
+    {
+        for(const [key, value] of this.equips)
+        {
+            value.tryUnequip();
+        }
+    }
+
     // ISaveLoadAble implementation
 
     saveId: string = "inventory";
@@ -241,29 +257,58 @@ export class InventoryManager implements ISaveLoadAble
     {
         let data: string = "";
 
+        // saving items
+
         for(const [key, value] of this.items)
         {
             data += `"${key}":${value.amount},`
         }
 
-        return `{${data.slice(0, -1)}}`;
+        // saving equipment
+
+        data += `"equipment":{`;
+
+        for(const [key, value] of this.equips)
+        {
+            if(value.currentlyEquipped) data += `"${key}":"${value.currentlyEquipped.id}",`;
+        }
+
+        return `{${data.slice(0, -1)}}}`;
     }
 
+    // rather inefficient, but it's not like it's going to be called often
+    // TODO: refactor
     load(data: Object): boolean
     {
         let returnValue: boolean = true;
         let map = new Map(Object.entries(data));
 
+        this.unequipAll();
+        this.clear();
+
         for(const [key, value] of map)
         {
-            this.addItem(key, value as number, false);
+            if(key == "equipment")
+            {
+                for(const [keyEq, valueEq] of new Map(Object.entries(value)))
+                {
+                    // TODO: rethink algorithm to not necessiate adding from inventory (not doing this rn to avoid creating orphan items)
+                    // this is UGLY
+                    this.addItem(valueEq!.toString(), 1, false);
+                    this.tryEquip(this.items.get(valueEq!.toString())!.item as ItemEquipment); 
+                }
+            }
+            else
+            {
+                this.addItem(key, value as number, false);
+            }
         }
 
         return returnValue;
     }
 
 
-    tryEquip(equipment: ItemEquipment): void
+    tryEquip(equipment: ItemEquipment, fromInventory: boolean = true): void
     {
         // accessories and twohanders are two special cases
         switch(equipment.slot)
@@ -272,12 +317,12 @@ export class InventoryManager implements ISaveLoadAble
             case EquipmentSlotType.Body:
             case EquipmentSlotType.MainHand:
             case EquipmentSlotType.OffHand:
-                this.equips.get(equipment.slot.toString())!.tryEquip(equipment);
+                this.equips.get(equipment.slot.toString())!.tryEquip(equipment, fromInventory);
                 break;
             case EquipmentSlotType.Accessory:
                 for(let i = 0; i < this.maxAccessories; i++)
                 {
-                    if(this.equips.get(`acc${i}`)!.tryEquip(equipment)) break;
+                    if(this.equips.get(`acc${i}`)!.tryEquip(equipment, fromInventory)) break;
                 }
                 break;
             case EquipmentSlotType.TwoHand:
