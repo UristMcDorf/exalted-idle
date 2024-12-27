@@ -1,6 +1,6 @@
 import { IUpdates, ISaveLoadAble } from "./global_interfaces.js";
 import { DEBUG_TestRandomStuff } from "./DEBUG_testrandomstuff.js";
-import { debugFlag, tickrate, version } from "./global_statics.js";
+import { autoSaveInterval, debugFlag, tickrate, version } from "./global_statics.js";
 
 import { LocalisationManager } from "./localisation/s_localisation_manager.js"
 import { GameTimeManager } from "./time/s_game_time_manager.js";
@@ -43,7 +43,7 @@ export const S_inventoryManager: InventoryManager = new InventoryManager();
 function run()
 {
     document.getElementById("save_button")!.addEventListener("click", evt => saveLocal());
-    document.getElementById("load_button")!.addEventListener("click", evt => loadLocal());
+    // document.getElementById("load_button")!.addEventListener("click", evt => loadLocal());
     document.getElementById("export_button")!.addEventListener("click", evt => saveExport());
     document.getElementById("import_file")!.addEventListener("change", evt => loadImport(evt));
 
@@ -51,6 +51,7 @@ function run()
     debugFlag ? document.getElementById("debug_run_debug_function")!.addEventListener("click", evt => DEBUG_TestRandomStuff()) : document.getElementById("debug_run_debug_function")!.remove();
 
     loadLocal();
+    setTimeout(autoSave, autoSaveInterval);
 
     update();
 }
@@ -77,7 +78,7 @@ function saveExport(): void
 {
     const a = window.document.createElement("a");
     a.href = window.URL.createObjectURL(new Blob([makeSaveString()], { type: `application/JSON` })); // no, I don't bother with encoding
-    a.download = `exalted-idle ${Date.now()} save.json`;
+    a.download = `exalted-idle ${Date.now()} save.json`; // TODO: parse date into human-readable
 
     document.body.appendChild(a);
     a.click();
@@ -162,6 +163,13 @@ async function loadLocalisation()
 function clearSave(): void
 {
     localStorage.clear();
+}
+
+function autoSave()
+{
+    saveLocal();
+
+    setTimeout(autoSave, autoSaveInterval);
 }
 
 // START
