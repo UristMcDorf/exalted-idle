@@ -89,10 +89,10 @@ export const ColorSchemes: Map<string, ColorScheme> = new Map<string, ColorSchem
             vigourBarColorMissing: "#3d3d53",
             essenceBarColorFilled: "#5f5fd4",
             essenceBarColorMissing: "#3d3d53",
-            skillBarColorFilled: "#bd65d8",
+            skillBarColorFilled: "#d87665",
             skillBarColorMissing: "transparent",
         
-            buttonHoverColor: "#9b7dc2",
+            buttonHoverColor: "#c27d7d",
         
             boxBorderColor: "#44446d"
         }
@@ -156,9 +156,9 @@ export const ColorSchemes: Map<string, ColorScheme> = new Map<string, ColorSchem
 // --vigourBarColorMissing: var(--progressBarColorMissingDefault);
 // --essenceBarColorFilled: #5f5fd4;
 // --essenceBarColorMissing: var(--progressBarColorMissingDefault);
-// --skillBarColorFilled: #bd65d8;
+// --skillBarColorFilled: #d87665;
 // --skillBarColorMissing: transparent;
 
-// --buttonHoverColor: #9b7dc2;
+// --buttonHoverColor: #c27d7d;
 
 // --boxBorderColor: #44446d;
