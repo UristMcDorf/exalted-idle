@@ -1,34 +1,34 @@
 :root
 {
     /* For vars I'm copying the js naming scheme to facilitate loading */
-    --bgColor: rgb(69, 82, 88);
-    --tooltipBgColor: rgb(94, 109, 116);
-
-    --mainPanelBgColor: rgb(112, 114, 121);
-    --mainPanelBgInactiveColor: rgb(73, 73, 90);
-
-    --contentPanelBgColor: rgb(121, 123, 136);
-    --timeWeatherPanelBgColor: rgb(105, 106, 128);
-
-    --fontColor: rgb(241, 246, 255);
-    --hintFontColor: rgb(162, 165, 192);
-    --progressBarFontColor: rgb(241, 246, 255);
-
+    --bgColor: #f3e3c5;
+    --tooltipBgColor: #f8f1d8;
+    
+    --mainPanelBgColor: #ecd8ba;
+    --mainPanelBgInactiveColor: #e6c8ac;
+    
+    --contentPanelBgColor: #fdf0d8;
+    --timeWeatherPanelBgColor: #f3d7a2;
+    
+    --fontColor: #33322e;
+    --hintFontColor: #afa88f;
+    --progressBarFontColor: #fdfdf5;
+    
     --progressBarColorFilledDefault: magenta;
-    --progressBarColorMissingDefault: rgb(61, 61, 83);
-
-    --healthBarColorFilled: rgb(114, 172, 114);
+    --progressBarColorMissingDefault: #cfb687;
+    
+    --healthBarColorFilled: #5ad35a;
     --healthBarColorMissing: var(--progressBarColorMissingDefault);
-    --vigourBarColorFilled: rgb(177, 130, 69);
+    --vigourBarColorFilled: #dd8615;
     --vigourBarColorMissing: var(--progressBarColorMissingDefault);
-    --essenceBarColorFilled: rgb(95, 95, 212);
+    --essenceBarColorFilled: #2f2fd4;
     --essenceBarColorMissing: var(--progressBarColorMissingDefault);
-    --skillBarColorFilled: rgb(216, 118, 101);
+    --skillBarColorFilled: #d49f2c;
     --skillBarColorMissing: transparent;
-
-    --buttonHoverColor: rgb(194, 125, 125);
-
-    --boxBorderColor: rgb(68, 68, 109);
+    
+    --buttonHoverColor: #ecca59;
+    
+    --boxBorderColor: #b38f6f;
 
     --timeWeatherDisplayHeight: 18px;
 }

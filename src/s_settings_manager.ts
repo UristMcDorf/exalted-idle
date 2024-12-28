@@ -40,6 +40,11 @@ export class SettingsManager implements ISaveLoadAble
             {
                 case "theme":
                     this.updateTheme(value);
+
+                    for(const [t_key, t_value] of ColorSchemes)
+                    {
+                        (document.getElementById(`settings.theme.option.${t_key}`)! as HTMLOptionElement).selected = (t_key == this.theme) ? true : false;
+                    }
             }
         }
 

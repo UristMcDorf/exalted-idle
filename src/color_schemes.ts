@@ -101,7 +101,7 @@ export const ColorSchemes: Map<string, ColorScheme> = new Map<string, ColorSchem
 
 // MOONSILVER (light)
 
-// ORICHALCUM (colourful)
+// ORICHALCUM (colourful, default)
 
 // --bgColor: #f3e3c5;
 // --tooltipBgColor: #f8f1d8;
