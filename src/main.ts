@@ -11,6 +11,7 @@ import { StatManager } from "./stats/s_stat_manager.js";
 import { DisplayManager } from "./s_display_manager.js";
 import { Tooltip } from "./s_tooltip.js";
 import { InventoryManager } from "./items/s_inventory_manager.js";
+import { SettingsManager } from "./s_settings_manager.js";
 
 export const saveLoadAbleList: Set<ISaveLoadAble> = new Set<ISaveLoadAble>();
 export const updatesList: Set<IUpdates> = new Set<IUpdates>();
@@ -28,14 +29,16 @@ export const S_localisationManager: LocalisationManager = new LocalisationManage
 await loadLocalisation(); // must be done before the others because they rely on it to provide strings
 
 // TODO: initialise with loaded values for ISaveLoadAbles
+// HIGHER PRIORITY now that themes are in
 export const S_gameTimeManager: GameTimeManager = new GameTimeManager();
 export const S_logManager: LogManager = new LogManager();
 export const S_characterStateManager: CharacterStateManager = new CharacterStateManager();
 export const S_statManager: StatManager = new StatManager();
 export const S_locationManager: LocationManager = new LocationManager();
-export const s_displayManager: DisplayManager = new DisplayManager();
+export const S_displayManager: DisplayManager = new DisplayManager();
 export const S_tooltip: Tooltip = new Tooltip();
 export const S_inventoryManager: InventoryManager = new InventoryManager();
+export const S_settingsManager: SettingsManager = new SettingsManager();
 
 /* END - SINGLETON CONSTANT REFERENCES */
 
