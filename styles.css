@@ -51,6 +51,8 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: small;
     color: var(--fontColor);
+    
+    transition-duration: 0.2s;
 }
 
 .main_grid

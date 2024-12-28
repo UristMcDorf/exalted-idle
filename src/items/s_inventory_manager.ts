@@ -83,12 +83,14 @@ class InventoryEntry implements ITooltipSource
 
 class EquipmentSlot implements ITooltipSource
 {
+    key: string;
     type: EquipmentSlotType;
     H_container: HTMLElement;
     currentlyEquipped: ItemEquipment | null;
 
     constructor(key: string, type: EquipmentSlotType)
     {
+        this.key = key;
         this.currentlyEquipped = null;
 
         this.H_container = document.getElementById(`equip_grid.${key}`)!;
@@ -136,12 +138,12 @@ class EquipmentSlot implements ITooltipSource
     {
         if(this.currentlyEquipped)
         {
-            this.H_container.style.color = `var(--font-color)`;
+            this.H_container.className = `equip_grid_${this.key}`;
             this.H_container.innerHTML = `${S_localisationManager.getString(`item.${this.currentlyEquipped.id}.name`)}`;
         }
         else
         {
-            this.H_container.style.color = `var(--hint-font-color)`;
+            this.H_container.className = `equip_grid_${this.key} inactive`;
             this.H_container.innerHTML = `${S_localisationManager.getString(`equip_slots.${this.type}`)}`;
         }
     }
@@ -266,14 +268,23 @@ export class InventoryManager implements ISaveLoadAble
 
         // saving equipment
 
-        data += `"equipment":{`;
+        let addedEquipmentKey: boolean = false;
 
         for(const [key, value] of this.equips)
         {
-            if(value.currentlyEquipped) data += `"${key}":"${value.currentlyEquipped.id}",`;
+            if(value.currentlyEquipped)
+            {
+                if(!addedEquipmentKey)
+                {
+                    data += `"equipment":{`;
+                    addedEquipmentKey = true;
+                }
+
+                data += `"${key}":"${value.currentlyEquipped.id}",`;
+            }
         }
 
-        return `{${data.slice(0, -1)}}}`;
+        return addedEquipmentKey ? `{${data.slice(0, -1)}}}` : `{${data.slice(0, -1)}`; // TODO: more elegant, less hacky
     }
 
     // rather inefficient, but it's not like it's going to be called often
