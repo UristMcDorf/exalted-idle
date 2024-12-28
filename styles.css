@@ -23,10 +23,10 @@
     --vigourBarColorMissing: var(--progressBarColorMissingDefault);
     --essenceBarColorFilled: rgb(95, 95, 212);
     --essenceBarColorMissing: var(--progressBarColorMissingDefault);
-    --skillBarColorFilled: rgb(189, 101, 216);
+    --skillBarColorFilled: rgb(216, 118, 101);
     --skillBarColorMissing: transparent;
 
-    --buttonHoverColor: rgb(155, 125, 194);
+    --buttonHoverColor: rgb(194, 125, 125);
 
     --boxBorderColor: rgb(68, 68, 109);
 
