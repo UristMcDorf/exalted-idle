@@ -266,6 +266,8 @@ export class InventoryManager implements ISaveLoadAble
             data += `"${key}":${value.amount},`
         }
 
+        data = data.slice(0, -1);
+
         // saving equipment
 
         let addedEquipmentKey: boolean = false;
@@ -276,7 +278,7 @@ export class InventoryManager implements ISaveLoadAble
             {
                 if(!addedEquipmentKey)
                 {
-                    data += `"equipment":{`;
+                    data += `,"equipment":{`;
                     addedEquipmentKey = true;
                 }
 
@@ -284,7 +286,11 @@ export class InventoryManager implements ISaveLoadAble
             }
         }
 
-        return addedEquipmentKey ? `{${data.slice(0, -1)}}}` : `{${data.slice(0, -1)}`; // TODO: more elegant, less hacky
+        if(addedEquipmentKey) data = `${data.slice(0, -1)}}`;
+
+        console.log(data);
+
+        return `{${data}}`;
     }
 
     // rather inefficient, but it's not like it's going to be called often
