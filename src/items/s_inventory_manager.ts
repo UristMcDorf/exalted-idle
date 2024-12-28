@@ -290,7 +290,7 @@ export class InventoryManager implements ISaveLoadAble
         {
             if(key == "equipment")
             {
-                for(const [keyEq, valueEq] of new Map(Object.entries(value)))
+                for(const [keyEq, valueEq] of Object.entries(value))
                 {
                     // TODO: rethink algorithm to not necessiate adding from inventory (not doing this rn to avoid creating orphan items)
                     // this is UGLY

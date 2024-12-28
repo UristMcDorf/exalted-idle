@@ -149,9 +149,8 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
     load(data: Object): boolean
     {
         let returnValue: boolean = true;
-        let map = new Map(Object.entries(data));
 
-        for(const [key, value] of map.entries())
+        for(const [key, value] of Object.entries(data))
         {
             let resource: Resource | undefined = this.resources.get(key as ResourceType);
 
