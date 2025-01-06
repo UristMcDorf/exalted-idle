@@ -3,7 +3,7 @@
 import { EDate } from "./exalted_date.js";
 import { ISaveLoadAble } from "../global_interfaces.js";
 import { tickrate } from "../global_statics.js";
-import { saveLoadAbleList } from "../main.js";
+import { S_statManager, saveLoadAbleList } from "../main.js";
 
 export interface TimeMultiplier
 {
@@ -54,6 +54,8 @@ export class GameTimeManager implements ISaveLoadAble
         }
 
         this.H_timeDisplay.innerHTML = this.date.toString();
+
+        S_statManager.gainSkill("timekeeping", minutesPassed); // TODO: should probably move it elsewhere tbh
 
         return minutesPassed;
     }

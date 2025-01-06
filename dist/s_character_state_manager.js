@@ -59,6 +59,7 @@ export class CharacterStateManager {
         ]);
         saveLoadAbleList.add(this);
         updatesList.add(this);
+        this.flags = new Set();
     }
     update(minutesPassed) {
         for (const [key, value] of this.resources) {
@@ -102,5 +103,15 @@ export class CharacterStateManager {
         for (const [key, value] of this.resources) {
             value.updateDisplay();
         }
+    }
+    // returns false if flag was already there
+    registerFlag(flag) {
+        if (this.flags.has(flag))
+            return false;
+        this.flags.add(flag);
+        return true;
+    }
+    hasFlag(flag) {
+        return this.flags.has(flag);
     }
 }

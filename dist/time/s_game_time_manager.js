@@ -1,7 +1,7 @@
 // This includes the calendar
 import { EDate } from "./exalted_date.js";
 import { tickrate } from "../global_statics.js";
-import { saveLoadAbleList } from "../main.js";
+import { S_statManager, saveLoadAbleList } from "../main.js";
 export class GameTimeManager {
     // remember that all starts at 0; so new EDate(0, 10, 0, 0, 5, 760) is 10:00 1st Resplendent Water RY 760
     constructor(date = new EDate(0, 10, 0, 0, 5, 760)) {
@@ -25,6 +25,7 @@ export class GameTimeManager {
             minutesPassed++;
         }
         this.H_timeDisplay.innerHTML = this.date.toString();
+        S_statManager.gainSkill("timekeeping", minutesPassed); // TODO: should probably move it elsewhere tbh
         return minutesPassed;
     }
     getTimeMultiplier() {

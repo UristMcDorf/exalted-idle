@@ -31,7 +31,16 @@
     {
         "sleeping": { "name": "Sleeping" },
         "farming": { "name": "Farming" },
-        "toughness": { "name": "Toughness" }
+        "toughness": { "name": "Toughness" },
+        "timekeeping": { "name": "Timekeeping" }
+    },
+    "perk":
+    {
+        "timekeeping.time_display": "Can see exact time of day",
+        "timekeeping.dayofweek_display": "Can see current day of week",
+        "timekeeping.month_display": "Can see current month",
+        "timekeeping.dayofmonth_display": "Can see exact day in the month",
+        "timekeeping.year_display": "Can see current year"
     },
     "test": "dongs"
 }

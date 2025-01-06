@@ -1,8 +1,9 @@
 import { S_localisationManager, S_logManager, S_tooltip } from "../main.js";
 import { ProgressBar } from "../progress_bar.js";
 import { LogCategory } from "../s_log_manager.js";
+import { Perk } from "./perks.js";
 export class Skill {
-    constructor(id, abilityContainer, maxLevel, baseXpPerLevel = 100, xpScaling = 1.5) {
+    constructor(id, abilityContainer, maxLevel, baseXpPerLevel, xpScaling, perks) {
         this.id = id;
         this.abilityContainer = abilityContainer;
         this.abilityContainer.skills.add(this);
@@ -16,6 +17,13 @@ export class Skill {
         this.H_container = this.makeContainer();
         this.H_container.addEventListener("mouseover", evt => S_tooltip.setTooltipSource(this));
         this.H_container.addEventListener("mouseout", evt => S_tooltip.setVisibility(false)); // TODO: review
+        this.perks = new Map();
+        for (const [key, value] of perks) {
+            this.perks.set(key, new Set());
+            for (const entry of value) {
+                this.perks.get(key).add(Perk.makePerk(entry, this));
+            }
+        }
         this.updateVisibility();
     }
     // returns true if level has changed, can be relevant for updates
@@ -50,6 +58,16 @@ export class Skill {
                 break;
             }
             this.progressBar.setValue(this.xp, this.xpToNextLevel());
+        }
+        // update perks
+        // updating levels is a relatively rare thing (unless it's loading in which case we want to recalculate all anyway)
+        // so iterating over the whole map is viable
+        for (const [key, value] of this.perks) {
+            if (key <= this.currentLevel) {
+                for (const perk of value) {
+                    perk.enable();
+                }
+            }
         }
         this.H_labelLevel.innerHTML = this.levelString();
         this.updateVisibility();
@@ -98,7 +116,29 @@ export class Skill {
         return container;
     }
     updateTooltipSource() {
-        return this.currentLevel == this.maxLevel ? `Max level (${this.lifetimeXp} lifetime xp)` : Math.floor(this.xp) + "/" + this.xpToNextLevel() + " to level"; // TOLOC
+        let tooltip;
+        tooltip = (this.currentLevel == this.maxLevel) ? `Max level (${this.lifetimeXp} lifetime xp)` : `${Math.floor(this.xp)}/${this.xpToNextLevel()} to level`;
+        if (this.perks.size > 0)
+            tooltip += `<br><br>`;
+        for (const [key, value] of this.perks) {
+            if (key > this.currentLevel) {
+                tooltip += `<div class="inactive">Level ${key}: ???</div>`;
+                break;
+            }
+            else {
+                let newLine = ``;
+                for (const perk of value) {
+                    let perkDesc = perk.desc();
+                    if (perkDesc) {
+                        newLine += `${perkDesc}, `;
+                    }
+                }
+                if (newLine.length > 0) {
+                    tooltip += `<div>Level ${key}: ${newLine.slice(0, -2)}</div>`;
+                }
+            }
+        }
+        return tooltip; // TOLOC
     }
     updateVisibility() {
         this.abilityContainer.updateVisibility();

@@ -3,6 +3,8 @@ import { ProgressBar } from "../progress_bar.js";
 import { LogCategory } from "../s_log_manager.js";
 import { ITooltipSource } from "../s_tooltip.js";
 import { Ability, AbilityContainer } from "./abilities.js";
+import { PerkDBEntry } from "./db/skill_db_interfaces.js";
+import { Perk } from "./perks.js";
 
 
 export class Skill implements ITooltipSource
@@ -25,7 +27,9 @@ export class Skill implements ITooltipSource
     currentLevel: number;
     maxLevel: number;
 
-    constructor(id: string, abilityContainer: AbilityContainer, maxLevel: number, baseXpPerLevel: number = 100, xpScaling: number = 1.5)
+    perks: Map<number, Set<Perk>>;
+
+    constructor(id: string, abilityContainer: AbilityContainer, maxLevel: number, baseXpPerLevel: number, xpScaling: number, perks: Map<number, PerkDBEntry[]>)
     {
         this.id = id;
         this.abilityContainer = abilityContainer;
@@ -44,6 +48,18 @@ export class Skill implements ITooltipSource
 
         this.H_container.addEventListener("mouseover", evt => S_tooltip.setTooltipSource(this));
         this.H_container.addEventListener("mouseout", evt => S_tooltip.setVisibility(false)); // TODO: review
+
+        this.perks = new Map<number, Set<Perk>>();
+
+        for(const [key, value] of perks)
+        {
+            this.perks.set(key, new Set<Perk>());
+
+            for(const entry of value)
+            {
+                this.perks.get(key)!.add(Perk.makePerk(entry, this));
+            }
+        }
 
         this.updateVisibility();
     }
@@ -99,6 +115,21 @@ export class Skill implements ITooltipSource
             }
 
             this.progressBar.setValue(this.xp, this.xpToNextLevel());
+        }
+
+        // update perks
+        // updating levels is a relatively rare thing (unless it's loading in which case we want to recalculate all anyway)
+        // so iterating over the whole map is viable
+
+        for(const [key, value] of this.perks)
+        {
+            if(key <= this.currentLevel)
+            {
+                for(const perk of value)
+                {
+                    perk.enable();
+                }
+            }
         }
 
         this.H_labelLevel.innerHTML = this.levelString();
@@ -173,7 +204,40 @@ export class Skill implements ITooltipSource
 
     updateTooltipSource(): string
     {
-        return this.currentLevel == this.maxLevel ? `Max level (${this.lifetimeXp} lifetime xp)` : Math.floor(this.xp) + "/" + this.xpToNextLevel() + " to level"; // TOLOC
+        let tooltip: string;
+
+        tooltip = (this.currentLevel == this.maxLevel) ? `Max level (${this.lifetimeXp} lifetime xp)` : `${Math.floor(this.xp)}/${this.xpToNextLevel()} to level`;
+
+        if(this.perks.size > 0) tooltip += `<br><br>`;
+
+        for(const [key, value] of this.perks)
+        {
+            if(key > this.currentLevel)
+            {
+                tooltip += `<div class="inactive">Level ${key}: ???</div>`;
+                break;
+            }
+            else
+            {
+                let newLine: string = ``;
+                for(const perk of value)
+                {
+                    let perkDesc: string | null = perk.desc();
+
+                    if(perkDesc)
+                    {
+                        newLine += `${perkDesc}, `
+                    }
+                }
+
+                if(newLine.length > 0)
+                {
+                    tooltip += `<div>Level ${key}: ${newLine.slice(0, -2)}</div>`;
+                }
+            }
+        }
+
+        return tooltip; // TOLOC
     }
 
     updateVisibility(): void

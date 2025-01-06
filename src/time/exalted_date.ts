@@ -1,3 +1,5 @@
+import { S_characterStateManager } from "../main.js";
+
 // for "Exalted date"; not Date to avoid conflicts with tsc
 export class EDate
 {
@@ -42,6 +44,35 @@ export class EDate
         "Descending Earth",
         "Calibration"
     ];
+
+    // a separate section JUST for early non-timekeepers, imagine that
+    private static hoursToTimeOfDay: string[] = 
+    [
+        "Midnight",
+        "Night",
+        "Night",
+        "Night",
+        "Night",
+        "Night",
+        "Early morning",
+        "Early morning",
+        "Morning",
+        "Morning",
+        "Day",
+        "Day",
+        "Midday",
+        "Day",
+        "Day",
+        "Day",
+        "Day",
+        "Early evening",
+        "Early evening",
+        "Evening",
+        "Evening",
+        "Late evening",
+        "Late evening",
+        "Night"
+    ]
 
     minute: number; // range 0 to 59
     hour: number; // range 0 to 23
@@ -122,28 +153,44 @@ export class EDate
         return day + week * 7 + 1; // doesn't need special case for Calibration because week is always 0
     }
 
-    // defaults to non-calibration
-    private static dayOfMonthAsString(day: number, week: number, month: number): string
+    private static dayOfMonthAsString(day: number, week: number, month: number, displayMode: number = 0): string
     {
         if(month == 14)
         {
-            return this.calibrationDayNames[day];
+            return displayMode == 0 ? this.calibrationDayNames[day] : `???`;
         }
 
-        return this.dayOfWeekNames[day] + ", " + this.dayOfMonth(day, week) + " " + this.monthNames[month];
+        switch(displayMode)
+        {
+            case 2: // only the week day name
+                return `${this.dayOfWeekNames[day]}`;
+            case 1: // week day name and month but not specific day of month
+                return `${this.dayOfWeekNames[day]}, ${this.monthNames[month]}`;
+            case 0: // all info
+            default:
+                return `${this.dayOfWeekNames[day]}, ${this.dayOfMonth(day, week)} ${this.monthNames[month]}`;
+        }
     }
 
     // TODO: maybe template string for loc purposes?
     toString(): string
     {
-        return this.hour.toString().padStart(2, "0") +
-            ":" +
-            this.minute.toString().padStart(2, "0") +
-            ", " +
-            EDate.dayOfMonthAsString(this.day, this.week, this.month) +
-            ", RY " +
-            this.year
-        ;
+        if(S_characterStateManager.hasFlag("timekeeping.year_display"))
+            return `${this.hour.toString().padStart(2, "0")}:${this.minute.toString().padStart(2, "0")}, ${EDate.dayOfMonthAsString(this.day, this.week, this.month)}, RY ${this.year}`;
+        
+        if(S_characterStateManager.hasFlag("timekeeping.dayofmonth_display"))
+            return `${this.hour.toString().padStart(2, "0")}:${this.minute.toString().padStart(2, "0")}, ${EDate.dayOfMonthAsString(this.day, this.week, this.month, 0)}`;
+
+        if(S_characterStateManager.hasFlag("timekeeping.month_display"))
+            return `${this.hour.toString().padStart(2, "0")}:${this.minute.toString().padStart(2, "0")}, ${EDate.dayOfMonthAsString(this.day, this.week, this.month, 1)}`;
+
+        if(S_characterStateManager.hasFlag("timekeeping.dayofweek_display"))
+            return `${this.hour.toString().padStart(2, "0")}:${this.minute.toString().padStart(2, "0")}, ${EDate.dayOfMonthAsString(this.day, this.week, this.month, 2)}`;
+
+        if(S_characterStateManager.hasFlag("timekeeping.time_display"))
+            return `${this.hour.toString().padStart(2, "0")}:${this.minute.toString().padStart(2, "0")}`;
+
+        return EDate.hoursToTimeOfDay[this.hour];
     }
 
     packToJSON(): string

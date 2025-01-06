@@ -3,7 +3,7 @@ import { AbilityContainer } from "./abilities.js";
 import { Ability } from "./abilities.js";
 import { Attribute, AttributeContainer } from "./attributes.js";
 import { ISaveLoadAble } from "../global_interfaces.js";
-import { DB_Skill, SkillDBEntry } from "./db/skill_db.js";
+import { DB_Skill } from "./db/skill_db.js";
 import { saveLoadAbleList } from "../main.js";
 
 export class StatManager implements ISaveLoadAble
@@ -33,7 +33,7 @@ export class StatManager implements ISaveLoadAble
         
         for(const dbEntry of DB_Skill)
         {
-            this.skillList.set(dbEntry.id, new Skill(dbEntry.id, this.abilityList.get(dbEntry.ability)!, dbEntry.maxLevel, dbEntry.baseXpPerLevel, dbEntry.xpScaling));
+            this.skillList.set(dbEntry.id, new Skill(dbEntry.id, this.abilityList.get(dbEntry.ability)!, dbEntry.maxLevel, dbEntry.baseXpPerLevel, dbEntry.xpScaling, dbEntry.perks));
         }
 
         // TODO redo when I move skill list off constructor; move attachSkillContainer call back to Skill init

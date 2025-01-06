@@ -21,7 +21,7 @@ export class StatManager {
         });
         this.skillList = new Map();
         for (const dbEntry of DB_Skill) {
-            this.skillList.set(dbEntry.id, new Skill(dbEntry.id, this.abilityList.get(dbEntry.ability), dbEntry.maxLevel, dbEntry.baseXpPerLevel, dbEntry.xpScaling));
+            this.skillList.set(dbEntry.id, new Skill(dbEntry.id, this.abilityList.get(dbEntry.ability), dbEntry.maxLevel, dbEntry.baseXpPerLevel, dbEntry.xpScaling, dbEntry.perks));
         }
         // TODO redo when I move skill list off constructor; move attachSkillContainer call back to Skill init
         for (const [key, value] of this.skillList.entries()) {

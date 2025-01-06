@@ -92,6 +92,8 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
 
     resources: Map<ResourceType, Resource>;
 
+    flags: Set<string>;
+
     constructor()
     {
         this.resources = new Map([
@@ -101,6 +103,8 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
 
         saveLoadAbleList.add(this);
         updatesList.add(this);
+
+        this.flags = new Set<string>();
     }
 
     update(minutesPassed: number): void
@@ -176,5 +180,19 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
         {
             value.updateDisplay();
         }
+    }
+
+    // returns false if flag was already there
+    registerFlag(flag: string): boolean
+    {
+        if(this.flags.has(flag)) return false;
+
+        this.flags.add(flag);
+        return true;
+    }
+
+    hasFlag(flag: string): boolean
+    {
+        return this.flags.has(flag);
     }
 }
