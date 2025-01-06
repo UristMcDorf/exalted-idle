@@ -1,8 +1,8 @@
 import { ColorSchemes } from "./color_schemes.js";
-import { ISaveLoadAble } from "./global_interfaces.js";
-import { saveLoadAbleList } from "./main.js";
+import { ISaveLoadAble, IScreenTintSource } from "./global_interfaces.js";
+import { S_displayManager, saveLoadAbleList } from "./main.js";
 
-export class SettingsManager implements ISaveLoadAble
+export class SettingsManager implements ISaveLoadAble, IScreenTintSource
 {
     H_settingsPanel: HTMLElement;
 
@@ -18,7 +18,7 @@ export class SettingsManager implements ISaveLoadAble
 
         this.H_settingsPanel = document.getElementById("settings_panel")!;
 
-        document.getElementById(`settings_button`)!.addEventListener("click", evt => this.toggleSettingsPanel());
+        document.getElementById(`settings_button`)!.addEventListener("click", evt => this.toggle());
         document.getElementById(`settings.theme.select`)!.addEventListener("change", evt => this.updateTheme((evt.target! as any).value)); // ugly bleh
 
         saveLoadAbleList.add(this);
@@ -61,9 +61,11 @@ export class SettingsManager implements ISaveLoadAble
         }
     }
 
-    toggleSettingsPanel(): void
+    toggle(): void
     {
         this.settingsPanelVisible = !this.settingsPanelVisible;
         this.H_settingsPanel.style.display = this.settingsPanelVisible ? "block" : "none";
+
+        S_displayManager.toggleScreenTint(this.settingsPanelVisible ? this : null);
     }
 }

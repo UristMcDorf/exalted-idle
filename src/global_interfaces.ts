@@ -10,3 +10,8 @@ export interface IUpdates
 {
     update(minutes: number): void;
 }
+
+export interface IScreenTintSource
+{
+    toggle(): void;
+}

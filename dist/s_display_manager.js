@@ -18,6 +18,9 @@ export class DisplayManager {
         // {
         //     value.button.addEventListener("click", evt => this.switchToTab("middle", key));
         // }
+        this.H_screenTint = document.getElementById(`screen_tint`);
+        this.H_screenTint.addEventListener("click", evt => this.toggleScreenTintClick());
+        this.screenTintSource = null;
     }
     switchToTab(category, tab) {
         switch (category) {
@@ -36,5 +39,12 @@ export class DisplayManager {
                 }
                 break;
         }
+    }
+    toggleScreenTint(screenTintSource = null) {
+        this.screenTintSource = screenTintSource;
+        this.H_screenTint.style.display = this.screenTintSource ? "block" : "none";
+    }
+    toggleScreenTintClick() {
+        this.screenTintSource.toggle();
     }
 }

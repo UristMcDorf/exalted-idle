@@ -1,6 +1,8 @@
 // Handles UI and stuff
 // Switching between tabs, settings, etc
 
+import { IScreenTintSource } from "./global_interfaces.js";
+
 interface TabPanelPair
 {
     button: HTMLElement;
@@ -11,6 +13,9 @@ export class DisplayManager
 {
     leftPanelTabs: Map<string, TabPanelPair>;
     middlePanelTabs: Map<string, TabPanelPair>;
+    
+    H_screenTint: HTMLElement;
+    screenTintSource: IScreenTintSource | null;
 
     constructor()
     {
@@ -34,9 +39,14 @@ export class DisplayManager
         // {
         //     value.button.addEventListener("click", evt => this.switchToTab("middle", key));
         // }
+
+        this.H_screenTint = document.getElementById(`screen_tint`)!;
+        this.H_screenTint.addEventListener("click", evt => this.toggleScreenTintClick());
+        
+        this.screenTintSource = null;
     }
 
-    switchToTab(category: string, tab: string)
+    switchToTab(category: string, tab: string): void
     {
         switch(category)
         {
@@ -59,5 +69,17 @@ export class DisplayManager
                 }
                 break;
         }
+    }
+
+    toggleScreenTint(screenTintSource: IScreenTintSource | null = null): void
+    {
+        this.screenTintSource = screenTintSource;
+
+        this.H_screenTint.style.display = this.screenTintSource ? "block" : "none";
+    }
+
+    toggleScreenTintClick(): void
+    {
+        this.screenTintSource!.toggle();
     }
 }

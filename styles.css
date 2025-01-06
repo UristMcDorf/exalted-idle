@@ -31,6 +31,9 @@
     --boxBorderColor: #b38f6f;
 
     --timeWeatherDisplayHeight: 18px;
+
+    --z-screen-tint: 3;
+    --z-over-screen-tint: 4;
 }
 
 .fake_link
@@ -423,6 +426,23 @@ input:focus
     color: var(--hintFontColor);
 }
 
+.screen_tint
+{
+    position: fixed;
+    inset: 0;
+
+    z-index: var(--z-screen-tint);
+
+    /* display: none; */
+
+    background-color: #33333333;
+
+    display: none;
+
+    width: 100%;
+    height: 100%;
+}
+
 .settings_panel
 {
     position: fixed;
@@ -437,7 +457,7 @@ input:focus
 
     align-self: end;
 
-    z-index: 1;
+    z-index: var(--z-over-screen-tint);
 
     text-indent: 20px;
 
