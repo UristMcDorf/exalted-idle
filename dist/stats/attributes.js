@@ -1,3 +1,4 @@
+import { baseAttributeValue } from "../global_statics.js";
 import { S_localisationManager, S_tooltip } from "../main.js";
 // ordered for the sake of easy table population lmao
 export var Attribute;
@@ -13,9 +14,12 @@ export var Attribute;
     Attribute["Wits"] = "wits";
 })(Attribute || (Attribute = {}));
 export class AttributeContainer {
-    constructor(attribute, value = 10) {
+    constructor(attribute, baseValue = baseAttributeValue) {
         this.attribute = attribute;
-        this.value = value;
+        this.baseValue = baseValue;
+        this.value = baseValue;
+        this.adjustersFlat = new Set();
+        this.adjustersMulti = new Set();
         this.H_container = this.makeContainer();
         this.tooltip = this.setTooltip();
         this.H_container.addEventListener("mouseover", evt => S_tooltip.setTooltipSource(this));
@@ -42,5 +46,25 @@ export class AttributeContainer {
     }
     setTooltip() {
         return S_localisationManager.getString(`attribute.${this.attribute}.tooltip`);
+    }
+    registerAttributeAdjuster(adjuster) {
+        if (`flat` in adjuster)
+            this.adjustersFlat.add(adjuster);
+        if (`multi` in adjuster)
+            this.adjustersMulti.add(adjuster);
+    }
+    // unregistering applied when I need it, which is probably only after I introduce temp effects or somesuch
+    recalculate() {
+        this.value = this.baseValue;
+        for (const adjuster of this.adjustersFlat) {
+            this.value += adjuster.flat;
+        }
+        for (const adjuster of this.adjustersMulti) {
+            this.value *= adjuster.multi;
+        }
+        this.updateDisplay();
+    }
+    updateDisplay() {
+        this.H_labelValue.innerHTML = this.value.toString();
     }
 }

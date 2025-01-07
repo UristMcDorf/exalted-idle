@@ -38,7 +38,7 @@ export class LocationManager implements ISaveLoadAble, IUpdates
     {
         if(!this.locationList.has(id))
         {
-            console.log("Location id \"" + id + "\" not found.")
+            console.error(`Location id "${id}" not found.`)
             return this.locationList.get("error")!;
         }
 

@@ -20,7 +20,7 @@ export class LocationManager {
     }
     retrieveLocation(id) {
         if (!this.locationList.has(id)) {
-            console.log("Location id \"" + id + "\" not found.");
+            console.error(`Location id "${id}" not found.`);
             return this.locationList.get("error");
         }
         return this.locationList.get(id);

@@ -1,14 +1,14 @@
 {
     "attribute":
     {
-        "strength": { "short_name": "Str", "tooltip": "Strength<p>Affects strength" },
-        "dexterity": { "short_name": "Dex", "tooltip": "Dexterity<p>Affects dexterity" },
-        "stamina": { "short_name": "Sta", "tooltip": "Stamina<p>Affects stamina" },
-        "presence": { "short_name": "Pre", "tooltip": "Presence<p>Affects presence" },
-        "manipulation": { "short_name": "Man", "tooltip": "Manipulation<p>Affects manipulation" },
-        "appearance": { "short_name": "App", "tooltip": "Appearance<p>Affects appearance" },
-        "perception": { "short_name": "Per", "tooltip": "Perception<p>Affects perception" },
-        "intelligence": { "short_name": "Int", "tooltip": "Intelligence<p>Affects intelligence" },
-        "wits": { "short_name": "Wit", "tooltip": "Wits<p>Affects wits" }
+        "strength": { "name": "Strength", "short_name": "Str", "tooltip": "Strength<br>Affects strength" },
+        "dexterity": { "name": "Dexterity", "short_name": "Dex", "tooltip": "Dexterity<br>Affects dexterity" },
+        "stamina": { "name": "Stamina", "short_name": "Sta", "tooltip": "Stamina<br>Affects stamina" },
+        "presence": { "name": "Presence", "short_name": "Pre", "tooltip": "Presence<br>Affects presence" },
+        "manipulation": { "name": "Manipulation", "short_name": "Man", "tooltip": "Manipulation<br>Affects manipulation" },
+        "appearance": { "name": "Appearance", "short_name": "App", "tooltip": "Appearance<br>Affects appearance" },
+        "perception": { "name": "Perception", "short_name": "Per", "tooltip": "Perception<br>Affects perception" },
+        "intelligence": { "name": "Intelligence", "short_name": "Int", "tooltip": "Intelligence<br>Affects intelligence" },
+        "wits": { "name": "Wits", "short_name": "Wit", "tooltip": "Wits<br>Affects wits" }
     }
 }

@@ -176,7 +176,6 @@ export class InventoryManager {
         }
         if (addedEquipmentKey)
             data = `${data.slice(0, -1)}}`;
-        console.log(data);
         return `{${data}}`;
     }
     // rather inefficient, but it's not like it's going to be called often

@@ -52,7 +52,7 @@ export class Skill {
             this.xp -= this.xpToNextLevel();
             this.currentLevel++;
             if (!loading)
-                S_logManager.log(S_localisationManager.getString(`skill.${this.id}.name`) + " reached level " + this.currentLevel + "!", LogCategory.Levels); // TOLOC
+                S_logManager.log(`${S_localisationManager.getString(`skill.${this.id}.name`)} reached level ${this.currentLevel}!`, LogCategory.Levels); // TOLOC
             if (this.currentLevel == this.maxLevel) {
                 this.progressBar.setValue(this.xpToNextLevel(), this.xpToNextLevel()); // just basically permanently clamping it to 100%, won't be updated anymore
                 break;
@@ -65,7 +65,7 @@ export class Skill {
         for (const [key, value] of this.perks) {
             if (key <= this.currentLevel) {
                 for (const perk of value) {
-                    perk.enable();
+                    perk.enable(loading);
                 }
             }
         }
@@ -80,7 +80,7 @@ export class Skill {
         return Math.floor(this.baseXpPerLevel * Math.pow(this.xpScaling, this.currentLevel));
     }
     levelString() {
-        return this.currentLevel + "/" + this.maxLevel;
+        return this.currentLevel == this.maxLevel ? `Max` : `${this.currentLevel}/${this.maxLevel}`;
     }
     makeContainer() {
         const container = document.createElement("div");
@@ -117,7 +117,7 @@ export class Skill {
     }
     updateTooltipSource() {
         let tooltip;
-        tooltip = (this.currentLevel == this.maxLevel) ? `Max level (${this.lifetimeXp} lifetime xp)` : `${Math.floor(this.xp)}/${this.xpToNextLevel()} to level`;
+        tooltip = (this.currentLevel == this.maxLevel) ? `Max level ${this.maxLevel} (${this.lifetimeXp} lifetime xp)` : `${Math.floor(this.xp)}/${this.xpToNextLevel()} to level`;
         if (this.perks.size > 0)
             tooltip += `<br><br>`;
         for (const [key, value] of this.perks) {

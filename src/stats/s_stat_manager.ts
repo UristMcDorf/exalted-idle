@@ -1,10 +1,11 @@
 import { Skill } from "./skills.js";
 import { AbilityContainer } from "./abilities.js";
 import { Ability } from "./abilities.js";
-import { Attribute, AttributeContainer } from "./attributes.js";
+import { Attribute, AttributeAdjuster, AttributeContainer } from "./attributes.js";
 import { ISaveLoadAble } from "../global_interfaces.js";
 import { DB_Skill } from "./db/skill_db.js";
 import { saveLoadAbleList } from "../main.js";
+
 
 export class StatManager implements ISaveLoadAble
 {
@@ -110,6 +111,23 @@ export class StatManager implements ISaveLoadAble
             skill.import(value as number);
         }
 
+        this.recalculateAttributes();
+
         return returnValue;
+    }
+
+    registerAttributeAdjuster(adjuster: AttributeAdjuster, recalcAfter: boolean = true): void
+    {
+        this.attributeList.get(adjuster.attribute)!.registerAttributeAdjuster(adjuster);
+
+        if(recalcAfter) this.recalculateAttributes();
+    }
+
+    recalculateAttributes()
+    {
+        for(const [key, value] of this.attributeList)
+        {
+            value.recalculate();
+        }
     }
 }

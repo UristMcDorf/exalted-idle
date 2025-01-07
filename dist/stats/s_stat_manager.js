@@ -63,6 +63,17 @@ export class StatManager {
             }
             skill.import(value);
         }
+        this.recalculateAttributes();
         return returnValue;
+    }
+    registerAttributeAdjuster(adjuster, recalcAfter = true) {
+        this.attributeList.get(adjuster.attribute).registerAttributeAdjuster(adjuster);
+        if (recalcAfter)
+            this.recalculateAttributes();
+    }
+    recalculateAttributes() {
+        for (const [key, value] of this.attributeList) {
+            value.recalculate();
+        }
     }
 }

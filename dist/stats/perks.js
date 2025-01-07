@@ -1,4 +1,4 @@
-import { S_characterStateManager, S_localisationManager } from "../main.js";
+import { S_characterStateManager, S_localisationManager, S_statManager } from "../main.js";
 export var PerkType;
 (function (PerkType) {
     // these two are functionally equivalent, but flag isn't visible in tooltips
@@ -18,12 +18,11 @@ export class Perk {
             case PerkType.Flag:
                 return new PerkFlagUnique(skill, dbEntry.id, false);
             case PerkType.AttributeUp:
-                // return new PerkFlagUnique(skill, true, dbEntry.id!);
-                return new Perk(skill); // DUMMY
+                return new PerkAttributeUp(skill, dbEntry.attribute, dbEntry.amount); // DUMMY
         }
     }
     // exist to be extended
-    enable() { this.enabled = true; }
+    enable(loading = false) { this.enabled = true; }
     desc() { return null; }
 }
 export class PerkFlagUnique extends Perk {
@@ -32,11 +31,24 @@ export class PerkFlagUnique extends Perk {
         this.id = id;
         this.visible = visible;
     }
-    enable() {
-        super.enable();
+    enable(loading = false) {
+        super.enable(loading);
         S_characterStateManager.registerFlag(`${this.parent.id}.${this.id}`);
     }
     desc() {
-        return this.visible ? S_localisationManager.getString(`perk.${this.parent.id}.${this.id}`) : null;
+        return this.visible ? S_localisationManager.getString(`skill.${this.parent.id}.perk.${this.id}`) : null;
+    }
+}
+export class PerkAttributeUp extends Perk {
+    constructor(parent, attribute, flat) {
+        super(parent);
+        this.attribute = attribute;
+        this.flat = flat;
+    }
+    enable(loading = false) {
+        S_statManager.registerAttributeAdjuster(this, !loading);
+    }
+    desc() {
+        return `+${this.flat} ${S_localisationManager.getString(`attribute.${this.attribute}.name`)}`;
     }
 }

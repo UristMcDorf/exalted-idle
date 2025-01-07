@@ -105,7 +105,7 @@ export class Skill implements ITooltipSource
 
             this.currentLevel++;
 
-            if(!loading) S_logManager.log(S_localisationManager.getString(`skill.${this.id}.name`) + " reached level " + this.currentLevel + "!", LogCategory.Levels); // TOLOC
+            if(!loading) S_logManager.log(`${S_localisationManager.getString(`skill.${this.id}.name`)} reached level ${this.currentLevel}!`, LogCategory.Levels); // TOLOC
 
             if(this.currentLevel == this.maxLevel)
             {
@@ -127,7 +127,7 @@ export class Skill implements ITooltipSource
             {
                 for(const perk of value)
                 {
-                    perk.enable();
+                    perk.enable(loading);
                 }
             }
         }
@@ -151,7 +151,7 @@ export class Skill implements ITooltipSource
 
     levelString(): string
     {
-        return this.currentLevel + "/" + this.maxLevel;
+        return this.currentLevel == this.maxLevel ? `Max` : `${this.currentLevel}/${this.maxLevel}`;
     }
 
     makeContainer(): HTMLDivElement
@@ -206,7 +206,7 @@ export class Skill implements ITooltipSource
     {
         let tooltip: string;
 
-        tooltip = (this.currentLevel == this.maxLevel) ? `Max level (${this.lifetimeXp} lifetime xp)` : `${Math.floor(this.xp)}/${this.xpToNextLevel()} to level`;
+        tooltip = (this.currentLevel == this.maxLevel) ? `Max level ${this.maxLevel} (${this.lifetimeXp} lifetime xp)` : `${Math.floor(this.xp)}/${this.xpToNextLevel()} to level`;
 
         if(this.perks.size > 0) tooltip += `<br><br>`;
 

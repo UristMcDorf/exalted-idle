@@ -288,8 +288,6 @@ export class InventoryManager implements ISaveLoadAble
 
         if(addedEquipmentKey) data = `${data.slice(0, -1)}}`;
 
-        console.log(data);
-
         return `{${data}}`;
     }
 

@@ -1,4 +1,5 @@
-import { S_characterStateManager, S_localisationManager } from "../main.js";
+import { S_characterStateManager, S_localisationManager, S_statManager } from "../main.js";
+import { Attribute, AttributeAdjuster } from "./attributes.js";
 import { PerkDBEntry } from "./db/skill_db_interfaces.js";
 import { Skill } from "./skills.js";
 
@@ -31,13 +32,12 @@ export class Perk
             case PerkType.Flag:
                 return new PerkFlagUnique(skill, dbEntry.id!, false);
             case PerkType.AttributeUp:
-                // return new PerkFlagUnique(skill, true, dbEntry.id!);
-                return new Perk(skill); // DUMMY
+                return new PerkAttributeUp(skill, dbEntry.attribute!, dbEntry.amount!); // DUMMY
         }
     }
 
     // exist to be extended
-    enable(): void { this.enabled = true; }
+    enable(loading: boolean = false): void { this.enabled = true; }
     desc(): string | null { return null; }
 }
 
@@ -54,15 +54,40 @@ export class PerkFlagUnique extends Perk
         this.visible = visible;
     }
 
-    enable(): void
+    enable(loading: boolean = false): void
     {
-        super.enable();
+        super.enable(loading);
 
         S_characterStateManager.registerFlag(`${this.parent.id}.${this.id}`);
     }
 
     desc(): string | null
     {
-        return this.visible ? S_localisationManager.getString(`perk.${this.parent.id}.${this.id}`) : null;
+        return this.visible ? S_localisationManager.getString(`skill.${this.parent.id}.perk.${this.id}`) : null;
+    }
+}
+
+export class PerkAttributeUp extends Perk implements AttributeAdjuster
+{
+    attribute: Attribute;
+
+    flat: number;
+
+    constructor(parent: Skill, attribute: Attribute, flat: number)
+    {
+        super(parent);
+
+        this.attribute = attribute;
+        this.flat = flat;
+    }
+
+    enable(loading: boolean = false): void
+    {
+        S_statManager.registerAttributeAdjuster(this, !loading);
+    }
+
+    desc(): string | null
+    {
+        return `+${this.flat} ${S_localisationManager.getString(`attribute.${this.attribute}.name`)}`
     }
 }

@@ -1,3 +1,4 @@
+import { baseAttributeValue } from "../global_statics.js";
 import { S_localisationManager, S_tooltip } from "../main.js";
 import { ITooltipSource } from "../s_tooltip.js";
 
@@ -15,6 +16,14 @@ export enum Attribute
     Wits = "wits"
 }
 
+export interface AttributeAdjuster
+{
+    attribute: Attribute;
+    
+    flat?: number;
+    multi?: number;
+}
+
 export class AttributeContainer implements ITooltipSource
 {
     H_container!: HTMLDivElement;
@@ -24,12 +33,20 @@ export class AttributeContainer implements ITooltipSource
     attribute: Attribute;
     tooltip: string;
 
+    baseValue: number;
     value: number;
 
-    constructor(attribute: Attribute, value: number = 10)
+    adjustersFlat: Set<AttributeAdjuster>;
+    adjustersMulti: Set<AttributeAdjuster>;
+
+    constructor(attribute: Attribute, baseValue: number = baseAttributeValue)
     {
         this.attribute = attribute;
-        this.value = value;
+        this.baseValue = baseValue;
+        this.value = baseValue;
+
+        this.adjustersFlat = new Set<AttributeAdjuster>();
+        this.adjustersMulti = new Set<AttributeAdjuster>();
 
         this.H_container = this.makeContainer();
 
@@ -69,5 +86,35 @@ export class AttributeContainer implements ITooltipSource
     setTooltip(): string
     {
         return S_localisationManager.getString(`attribute.${this.attribute}.tooltip`);
+    }
+
+    registerAttributeAdjuster(adjuster: AttributeAdjuster): void
+    {
+        if(`flat` in adjuster) this.adjustersFlat.add(adjuster);
+        if(`multi` in adjuster) this.adjustersMulti.add(adjuster);
+    }
+
+    // unregistering applied when I need it, which is probably only after I introduce temp effects or somesuch
+
+    recalculate(): void
+    {
+        this.value = this.baseValue;
+
+        for(const adjuster of this.adjustersFlat)
+        {
+            this.value += adjuster.flat!;
+        }
+
+        for(const adjuster of this.adjustersMulti)
+        {
+            this.value *= adjuster.multi!;
+        }
+
+        this.updateDisplay();
+    }
+
+    updateDisplay(): void
+    {
+        this.H_labelValue.innerHTML = this.value.toString();
     }
 }
