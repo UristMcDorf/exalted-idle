@@ -243,7 +243,7 @@ export class Skill implements ITooltipSource
     updateVisibility(): void
     {
         this.abilityContainer.updateVisibility();
-        this.H_container.style.display = this.shouldBeVisible() && !this.abilityContainer.collapsed ? "block" : "none";
+        this.H_container.style.display = this.shouldBeVisible() ? "block" : "none";
     }
 
     // For saving

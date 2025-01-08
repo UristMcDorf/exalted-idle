@@ -36,49 +36,35 @@ export enum Ability
 
 export class AbilityContainer
 {
-    H_container!: HTMLDivElement;
+    H_container!: HTMLDetailsElement;
     
     ability: Ability;
     skills: Set<Skill>;
-    collapsed: boolean;
 
     constructor(ability: Ability)
     {
         this.ability = ability;
         this.skills = new Set<Skill>();
-
-        this.collapsed = false;
         
         this.H_container = this.makeContainer();
-
-        this.H_container.addEventListener("click", evt => this.toggleCollapsed());
     }
 
-    // if this gets called, we already have at least one visible skill because otherwise it's not getting clicked
-    toggleCollapsed(): void
+    makeContainer(): HTMLDetailsElement
     {
-        this.collapsed = !this.collapsed;
-
-        for(const skill of this.skills)
-        {
-            skill.updateVisibility();
-        }
-    }
-
-    makeContainer(): HTMLDivElement
-    {
-        let container: HTMLDivElement = document.createElement("div");
+        let container: HTMLDetailsElement = document.createElement("details");
 
         container.id = `ability_container.${this.ability}`;
         container.className = "ability_container bottom_border";
 
-        let labelDiv: HTMLDivElement = document.createElement("div");
+        let label: HTMLElement = document.createElement("summary");
 
-        labelDiv.id = `ability_container.label.${this.ability}`;
-        labelDiv.className = "ability_container_label";
-        labelDiv.innerHTML = S_localisationManager.getString(`ability.${this.ability}.name`);
+        label.id = `ability_container.label.${this.ability}`;
+        label.className = "ability_container_label";
+        label.innerHTML = S_localisationManager.getString(`ability.${this.ability}.name`);
 
-        container.appendChild(labelDiv);
+        container.appendChild(label);
+
+        container.open = true;
 
         container.style.display = "none"; // initialise invisible due to no skills
 
@@ -87,6 +73,8 @@ export class AbilityContainer
 
     shouldBeVisible(): boolean
     {
+        // if even one skill present then the ability is visible
+
         for(const skill of this.skills)
         {
             if(skill.shouldBeVisible()) return true;

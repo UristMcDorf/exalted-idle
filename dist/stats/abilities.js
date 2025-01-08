@@ -34,30 +34,23 @@ export class AbilityContainer {
     constructor(ability) {
         this.ability = ability;
         this.skills = new Set();
-        this.collapsed = false;
         this.H_container = this.makeContainer();
-        this.H_container.addEventListener("click", evt => this.toggleCollapsed());
-    }
-    // if this gets called, we already have at least one visible skill because otherwise it's not getting clicked
-    toggleCollapsed() {
-        this.collapsed = !this.collapsed;
-        for (const skill of this.skills) {
-            skill.updateVisibility();
-        }
     }
     makeContainer() {
-        let container = document.createElement("div");
+        let container = document.createElement("details");
         container.id = `ability_container.${this.ability}`;
         container.className = "ability_container bottom_border";
-        let labelDiv = document.createElement("div");
-        labelDiv.id = `ability_container.label.${this.ability}`;
-        labelDiv.className = "ability_container_label";
-        labelDiv.innerHTML = S_localisationManager.getString(`ability.${this.ability}.name`);
-        container.appendChild(labelDiv);
+        let label = document.createElement("summary");
+        label.id = `ability_container.label.${this.ability}`;
+        label.className = "ability_container_label";
+        label.innerHTML = S_localisationManager.getString(`ability.${this.ability}.name`);
+        container.appendChild(label);
+        container.open = true;
         container.style.display = "none"; // initialise invisible due to no skills
         return container;
     }
     shouldBeVisible() {
+        // if even one skill present then the ability is visible
         for (const skill of this.skills) {
             if (skill.shouldBeVisible())
                 return true;
