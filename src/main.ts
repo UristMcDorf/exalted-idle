@@ -1,6 +1,5 @@
 import { IUpdates, ISaveLoadAble } from "./global_interfaces.js";
-import { DEBUG_TestRandomStuff } from "./DEBUG_testrandomstuff.js";
-import { autoSaveInterval, debugFlag, tickrate, version } from "./global_statics.js";
+import { autoSaveInterval, tickrate, version } from "./global_statics.js";
 
 import { LocalisationManager } from "./localisation/s_localisation_manager.js"
 import { GameTimeManager } from "./time/s_game_time_manager.js";
@@ -12,6 +11,7 @@ import { DisplayManager } from "./s_display_manager.js";
 import { Tooltip } from "./s_tooltip.js";
 import { InventoryManager } from "./items/s_inventory_manager.js";
 import { SettingsManager } from "./s_settings_manager.js";
+import { DebugManager } from "./s_debug_manager.js";
 
 export const saveLoadAbleList: Set<ISaveLoadAble> = new Set<ISaveLoadAble>();
 export const updatesList: Set<IUpdates> = new Set<IUpdates>();
@@ -39,19 +39,17 @@ export const S_displayManager: DisplayManager = new DisplayManager();
 export const S_tooltip: Tooltip = new Tooltip();
 export const S_inventoryManager: InventoryManager = new InventoryManager();
 export const S_settingsManager: SettingsManager = new SettingsManager();
+export const S_debugManager: DebugManager = new DebugManager();
 
 /* END - SINGLETON CONSTANT REFERENCES */
 
 // initial setup goes here
 function run()
 {
-    document.getElementById("save_button")!.addEventListener("click", evt => saveLocal());
+    document.getElementById(`save_button`)!.addEventListener(`click`, evt => saveLocal());
     // document.getElementById("load_button")!.addEventListener("click", evt => loadLocal());
-    document.getElementById("export_button")!.addEventListener("click", evt => saveExport());
-    document.getElementById("import_file")!.addEventListener("change", evt => loadImport(evt));
-
-    debugFlag ? document.getElementById("debug_clear_button")!.addEventListener("click", evt => clearSave()) : document.getElementById("debug_clear_button")!.remove();
-    debugFlag ? document.getElementById("debug_run_debug_function")!.addEventListener("click", evt => DEBUG_TestRandomStuff()) : document.getElementById("debug_run_debug_function")!.remove();
+    document.getElementById(`export_button`)!.addEventListener(`click`, evt => saveExport());
+    document.getElementById(`import_file`)!.addEventListener(`change`, evt => loadImport(evt));
 
     loadLocal();
     setTimeout(autoSave, autoSaveInterval);
@@ -161,11 +159,6 @@ function deepLoad(data: string): void
 async function loadLocalisation()
 {
     await S_localisationManager.loadLanguage("en");
-}
-
-function clearSave(): void
-{
-    localStorage.clear();
 }
 
 function autoSave()

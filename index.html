@@ -21,12 +21,31 @@
     
 </div>
 
+<!-- TODO: styling this comes later, tired of it for now -->
 <div id="settings_panel" class="settings_panel invisible">
     <span id="settings.theme.label">Theme</span>
     <select id="settings.theme.select">
         <option id="settings.theme.option.orichalcum" value="orichalcum" selected="true">Orichalcum</option>
         <option id="settings.theme.option.soulsteel" value="soulsteel">Soulsteel</option>
     </select>
+    <br>
+    <br>
+    <!-- TODO: should also show an "are you sure?" warning -->
+    <a id="settings.clear_data_button" class="meta_button"> 
+        Clear local save
+    </a>
+</div>
+
+<div id="debug_panel" class="settings_panel invisible">
+    Set skill level:
+    <select id="debug.skill.select">
+    </select>
+    <!-- no it doesn't validate input being outside of the proper range, debug functions can afford to be wonky :D -->
+    <input id="debug.skill.select.input" type="number" value="1">
+    </input>
+    <a id="debug.skill.set.button" class="meta_button"> 
+        Set
+    </a>
 </div>
 
 <div class="main_grid">
@@ -174,11 +193,8 @@
     <a href="./info_and_changelog.html" target="_blank" class="meta_button fake_link" style="float: right;">
         v0.0.1
     </a>
-    <a id="debug_clear_button" class="meta_button" style="float: right;">
-        DEBUG: clear local save
-    </a>
-    <a id="debug_run_debug_function" class="meta_button" style="float: right;">
-        DEBUG: run debug f
+    <a id="debug_panel_button" class="meta_button" style="float: right;">
+        DEBUG
     </a>
 </div>
 </div>

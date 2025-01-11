@@ -79,6 +79,15 @@ export class Skill implements ITooltipSource
         return this.recalculateLevel();
     }
 
+    setXp(amount: number): boolean
+    {
+        this.lifetimeXp = 0;
+        this.currentLevel = 0;
+        this.xp = 0;
+
+        return this.addXp(amount);
+    }
+
     // returns true if level has changed, can be relevant for updates
     // TODO: I REALLY need to move stuff like this to events, it's time to learn how :P
     // the loading thing is used to supress logging and to start from zero
@@ -147,6 +156,18 @@ export class Skill implements ITooltipSource
     xpToNextLevel(): number
     {
         return Math.floor(this.baseXpPerLevel * Math.pow(this.xpScaling, this.currentLevel));
+    }
+
+    xpToSpecificLevel(level: number): number
+    {
+        let amount: number = 0;
+
+        for(let i = 0; i < level; i++)
+        {
+            amount += Math.floor(this.baseXpPerLevel * Math.pow(this.xpScaling, i))
+        }
+
+        return amount;
     }
 
     levelString(): string
