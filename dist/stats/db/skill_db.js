@@ -6,9 +6,9 @@ import { PerkType } from "../perks.js";
 // but it's transitory before YAML anyway
 export const DB_Skill = new Set([
     { id: "sleeping", ability: Ability.Integrity, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map() },
-    { id: "farming", ability: Ability.Resistance, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map() },
-    { id: "toughness", ability: Ability.Resistance, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map() },
-    { id: "timekeeping", ability: Ability.Bureaucracy, maxLevel: 10, baseXpPerLevel: 7200, xpScaling: 1.5, perks: new Map([
+    { id: "farming", ability: Ability.Physique, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map() },
+    { id: "toughness", ability: Ability.Physique, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map() },
+    { id: "timekeeping", ability: Ability.Sagacity, maxLevel: 10, baseXpPerLevel: 7200, xpScaling: 1.5, perks: new Map([
             [1, [{ type: PerkType.Unique, id: "time_display" }]],
             [2, [{ type: PerkType.AttributeUp, attribute: Attribute.Intelligence, amount: 1 }]],
             [3, [{ type: PerkType.Unique, id: "dayofweek_display" }]],

@@ -4,31 +4,22 @@
 import { S_localisationManager } from "../main.js";
 export var Ability;
 (function (Ability) {
-    Ability["Archery"] = "archery";
     Ability["Athletics"] = "athletics";
     Ability["Awareness"] = "awareness";
-    Ability["Bureaucracy"] = "bureaucracy";
     Ability["Craft"] = "craft";
-    Ability["Dodge"] = "dodge";
+    Ability["Embassy"] = "embassy";
     Ability["Integrity"] = "integrity";
-    Ability["Investigation"] = "investigation";
-    Ability["Larceny"] = "larceny";
-    Ability["Linguistics"] = "linguistics";
-    Ability["Lore"] = "lore";
-    Ability["MartialArts"] = "martialarts";
-    Ability["Medicine"] = "medicine";
-    Ability["Melee"] = "melee";
-    Ability["Occult"] = "occult";
+    Ability["Navigate"] = "navigate";
     Ability["Performance"] = "performance";
+    Ability["Physique"] = "physique";
     Ability["Presence"] = "presence";
-    Ability["Resistance"] = "resistance";
-    Ability["Ride"] = "ride";
-    Ability["Sail"] = "sail";
-    Ability["Socialise"] = "socialise";
+    Ability["Sagacity"] = "sagacity";
     Ability["Stealth"] = "stealth";
-    Ability["Survival"] = "survival";
-    Ability["Thrown"] = "thrown";
     Ability["War"] = "war";
+    Ability["CloseCombat"] = "closecombat";
+    Ability["RangedCombat"] = "rangedcombat";
+    Ability["MartialArts"] = "martialarts";
+    Ability["Sorcery"] = "sorcery";
 })(Ability || (Ability = {}));
 export class AbilityContainer {
     constructor(ability) {

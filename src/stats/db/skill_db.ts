@@ -9,9 +9,9 @@ import { PerkDBEntry, SkillDBEntry } from "./skill_db_interfaces.js";
 // but it's transitory before YAML anyway
 export const DB_Skill: Set<SkillDBEntry> = new Set<SkillDBEntry>([
     { id: "sleeping", ability: Ability.Integrity, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map<number, PerkDBEntry[]>() },
-    { id: "farming", ability: Ability.Resistance, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map<number, PerkDBEntry[]>() },
-    { id: "toughness", ability: Ability.Resistance, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map<number, PerkDBEntry[]>() },
-    { id: "timekeeping", ability: Ability.Bureaucracy, maxLevel: 10, baseXpPerLevel: 7200, xpScaling: 1.5, perks: new Map<number, PerkDBEntry[]>([
+    { id: "farming", ability: Ability.Physique, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map<number, PerkDBEntry[]>() },
+    { id: "toughness", ability: Ability.Physique, maxLevel: 10, baseXpPerLevel: 100, xpScaling: 1.5, perks: new Map<number, PerkDBEntry[]>() },
+    { id: "timekeeping", ability: Ability.Sagacity, maxLevel: 10, baseXpPerLevel: 7200, xpScaling: 1.5, perks: new Map<number, PerkDBEntry[]>([
         [1, [{ type: PerkType.Unique, id: "time_display" }]],
         [2, [{ type: PerkType.AttributeUp, attribute: Attribute.Intelligence, amount: 1 }]],
         [3, [{ type: PerkType.Unique, id: "dayofweek_display" }]],

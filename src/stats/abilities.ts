@@ -7,31 +7,22 @@ import { Skill } from "./skills.js";
 
 export enum Ability
 {
-    Archery = "archery",
     Athletics = "athletics",
     Awareness = "awareness",
-    Bureaucracy = "bureaucracy",
     Craft = "craft",
-    Dodge = "dodge",
+    Embassy = "embassy",
     Integrity = "integrity",
-    Investigation = "investigation",
-    Larceny = "larceny",
-    Linguistics = "linguistics",
-    Lore = "lore",
-    MartialArts = "martialarts", // includes Brawl!
-    Medicine = "medicine",
-    Melee = "melee",
-    Occult = "occult",
+    Navigate = "navigate",
     Performance = "performance",
+    Physique = "physique",
     Presence = "presence",
-    Resistance = "resistance",
-    Ride = "ride",
-    Sail = "sail",
-    Socialise = "socialise", // suck it US English
+    Sagacity = "sagacity",
     Stealth = "stealth",
-    Survival = "survival",
-    Thrown = "thrown",
-    War = "war"
+    War = "war",
+    CloseCombat = "closecombat",
+    RangedCombat = "rangedcombat",
+    MartialArts = "martialarts",
+    Sorcery = "sorcery",
 }
 
 export class AbilityContainer
