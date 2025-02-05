@@ -15,7 +15,7 @@ export enum LocationEffectType
     AdjustResourcesMulti = "adjust_resources_multi",
 
     Duel = "duel", // a minigame for the more interesting enemies, often unique
-    ExploreCombat = "explore_combat", // the regular type where you just wail upon 1 to N enemies and vice versa in waves
+    Explore = "explore", // the regular type where you just wail upon 1 to N enemies and vice versa in waves, or maybe some other stuff
     MassCombat = "mass_combat", // for fighting big groups of enemies, up to armies
 
     NONE = "none" // dummy type for the base LocationEffect class

@@ -1,9 +1,11 @@
 import { ActionType } from "../../actions/actions.js";
 import { ResourceType } from "../../s_character_state_manager.js";
 import { LocationEffectType } from "../location_effects/location_effects.js";
+import { ExploreDB } from "./explore_db.js";
 import { ActionDBEntry, LocationDBEntry, LocationEffectDBEntry } from "./location_db_interfaces.js";
 
 // TODO: probably possible to write validators for this
+// WILL BE REPLACED with proper locations before release; think of this as debug town
 
 export const DB_Location: Set<LocationDBEntry> = new Set<LocationDBEntry>([
     { 
@@ -38,7 +40,8 @@ export const DB_Location: Set<LocationDBEntry> = new Set<LocationDBEntry>([
         actionList: new Set<ActionDBEntry>([
             { type: ActionType.Move, moveFrom: "field", moveWhere: "gentle_farm" },
             { type: ActionType.Move, moveFrom: "field", moveWhere: "intense_farm" },
-            { type: ActionType.Move, moveFrom: "field", moveWhere: "home" }
+            { type: ActionType.Move, moveFrom: "field", moveWhere: "home" },
+            { type: ActionType.Move, moveFrom: "field", moveWhere: "rats" },
         ]),
         locationEffectList: new Set<LocationEffectDBEntry>([])
     },
@@ -59,6 +62,15 @@ export const DB_Location: Set<LocationDBEntry> = new Set<LocationDBEntry>([
         locationEffectList: new Set<LocationEffectDBEntry>([
             { visible: true, type: LocationEffectType.AdjustResourcesFlat, adjustResourcesFlatList: new Map([[ResourceType.Health, -1], [ResourceType.Vigour, -4]]) },
             { visible: true, type: LocationEffectType.SkillGain, skillGainId: "farming", skillGainAmount: 5 }
+        ])
+    },
+    {
+        id: "rats",
+        actionList: new Set<ActionDBEntry>([
+            { type: ActionType.Move, moveFrom: "rats", moveWhere: "field" }
+        ]),
+        locationEffectList: new Set<LocationEffectDBEntry>([
+            { visible: true, type: LocationEffectType.Explore, exploreArea: ExploreDB.get("rats")! }
         ])
     }
 ])

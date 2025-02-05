@@ -6,7 +6,8 @@
         "sleep": { "name": "Sleep", "desc": "ZZZ" },
         "field": { "name": "Field", "desc": "Crops to be farmed." },
         "gentle_farm": { "name": "Farm", "desc": "You're farming with care." },
-        "intense_farm": { "name": "Farm", "desc": "You're farming the shit outta these crops." }
+        "intense_farm": { "name": "Farm", "desc": "You're farming the shit outta these crops." },
+        "rats": { "name": "Rats", "desc": "You're hunting giant rats, how original." }
     },
     "action":
     {
@@ -19,6 +20,7 @@
             "field-home": { "text": "Return home" },
             "field-gentle_farm": { "text": "Farm gently" },
             "field-intense_farm": { "text": "Farm with INTENSITY" },
+            "field-rats": { "text": "Hunt rats" },
             "farm-field": { "text": "Stop farming" }
         }
     }

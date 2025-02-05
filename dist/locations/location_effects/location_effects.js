@@ -7,7 +7,7 @@ export var LocationEffectType;
     LocationEffectType["AdjustResourcesFlat"] = "adjust_resources_flat";
     LocationEffectType["AdjustResourcesMulti"] = "adjust_resources_multi";
     LocationEffectType["Duel"] = "duel";
-    LocationEffectType["ExploreCombat"] = "explore_combat";
+    LocationEffectType["Explore"] = "explore";
     LocationEffectType["MassCombat"] = "mass_combat";
     LocationEffectType["NONE"] = "none"; // dummy type for the base LocationEffect class
 })(LocationEffectType || (LocationEffectType = {}));
