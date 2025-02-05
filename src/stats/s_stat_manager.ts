@@ -46,7 +46,7 @@ export class StatManager implements ISaveLoadAble
         // checking if any of the super skills should be made visible
         // ...later, when I add save/load
 
-        const H_attributeContainer: HTMLElement = document.getElementById("attribute_grid")!;
+        const H_attributeContainer: HTMLElement = document.getElementById("attributes_pane")!;
         
         this.attributeList = new Map<Attribute, AttributeContainer>();
 

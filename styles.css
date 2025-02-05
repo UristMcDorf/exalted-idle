@@ -30,7 +30,7 @@
     
     --boxBorderColor: #b38f6f;
 
-    --timeWeatherDisplayHeight: 18px;
+    --timeWeatherDisplayHeight: 24px;
 
     --z-screen-tint: 3;
     --z-over-screen-tint: 4;
@@ -52,7 +52,7 @@
     background-color: var(--bgColor);
 
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: small;
+    font-size: 12pt;
     color: var(--fontColor);
 
     transition-duration: 0.2s;
@@ -61,10 +61,10 @@
 .main_grid
 {
     display: grid;
-    grid-template-columns: 200px auto 200px;
+    grid-template-columns: 20% auto 20%;
     /* Uncomment and remove line below when ready to implement sliding timeline */
     /* grid-template-rows: calc(var(--timeWeatherDisplayHeight) * 2) 110px auto 20px 20px; */
-    grid-template-rows: var(--timeWeatherDisplayHeight) 110px auto 20px 20px;
+    grid-template-rows: var(--timeWeatherDisplayHeight) 130px auto 20px 20px;
 
     grid-template-areas: 
         "status_pane time_weather right_pane"
@@ -90,14 +90,7 @@
 .main_grid_right_tabs { grid-area: right_tabs; }
 .main_grid_meta { grid-area: meta; text-indent: 0px; }
 
-.attribute_grid
-{
-    display: grid;
-
-    grid: 20px 20px 20px / 1fr 1fr 1fr;
-}
-
-.attribute_grid_item_value
+.attribute_value
 {
     text-align: right;
     float: right;
@@ -153,9 +146,9 @@
 
 .tab_button
 {
-    font-size: smaller;
+    font-size: 10pt;
 
-    padding: 0px 8px 2px 8px;
+    padding: 1px 8px 2px 8px;
 
     transition-duration: 0.2s;
 }
@@ -203,9 +196,15 @@
 
     background-color: var(--bgColor);
     border: transparent;
+
+    padding-top: 5px;
 }
 
-/* relevant to name_pane; see if it affects other inputs?*/
+input
+{
+    font-size: 12pt;
+}
+
 input:focus
 {
     outline: none;
@@ -264,7 +263,7 @@ input:focus
 {
     padding: 4px 0px 0px 0px;
 
-    font-size: larger;
+    font-size: 14pt;
 }
 
 .ability_container_label
@@ -279,7 +278,7 @@ input:focus
 
 .skill_container
 {
-    font-size: smaller;
+    font-size: 12pt;
 
     text-indent: 8px;
 }
@@ -378,7 +377,7 @@ input:focus
     border-style: dotted;
     border-width: 1px 0px;
     border-color: var(--boxBorderColor);
-    font-size: larger;
+    font-size: 14pt;
     text-align: center;
 }
 
@@ -448,14 +447,13 @@ input:focus
     position: fixed;
     background-color: var(--bgColor);
 
-    inset: 0px 0px 24px 0px;
-
     padding: 4px 0px;
 
     width: 100%;
     height: 150px;
 
-    align-self: end;
+    bottom: 22px;
+    left: 0px;
 
     z-index: var(--z-over-screen-tint);
 
@@ -472,6 +470,8 @@ select
     background-color: var(--mainPanelBgColor);
     border: none;
     color: var(--fontColor);
+
+    font-size: 12pt;
 }
 
 select:focus

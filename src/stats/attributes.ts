@@ -5,15 +5,9 @@ import { ITooltipSource } from "../s_tooltip.js";
 // ordered for the sake of easy table population lmao
 export enum Attribute
 {
-    Strength = "strength",
-    Presence = "presence",
-    Perception = "perception",
-    Dexterity = "dexterity",
-    Manipulation = "manipulation",
-    Intelligence = "intelligence",
-    Stamina = "stamina",
-    Appearance = "appearance",
-    Wits = "wits"
+    Physical = "physical",
+    Social = "social",
+    Mental = "mental"
 }
 
 export interface AttributeAdjuster
@@ -64,12 +58,12 @@ export class AttributeContainer implements ITooltipSource
         
         let shortNameSpan: HTMLSpanElement = document.createElement("span");
         shortNameSpan.id = `attribute_label_name.${this.attribute}`;
-        shortNameSpan.innerHTML = S_localisationManager.getString(`attribute.${this.attribute}.short_name`);
+        shortNameSpan.innerHTML = S_localisationManager.getString(`attribute.${this.attribute}.name`);
         this.H_labelName = shortNameSpan;
 
         let valueSpan: HTMLSpanElement = document.createElement("span");
         valueSpan.id = `attribute_label_value.${this.attribute}`;
-        valueSpan.className = `attribute_grid_item_value`;
+        valueSpan.className = `attribute_value`;
         valueSpan.innerHTML = this.value.toString();
         this.H_labelValue = valueSpan;
 

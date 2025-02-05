@@ -1,14 +1,8 @@
 {
     "attribute":
     {
-        "strength": { "name": "Strength", "short_name": "Str", "tooltip": "Strength<br>Affects strength" },
-        "dexterity": { "name": "Dexterity", "short_name": "Dex", "tooltip": "Dexterity<br>Affects dexterity" },
-        "stamina": { "name": "Stamina", "short_name": "Sta", "tooltip": "Stamina<br>Affects stamina" },
-        "presence": { "name": "Presence", "short_name": "Pre", "tooltip": "Presence<br>Affects presence" },
-        "manipulation": { "name": "Manipulation", "short_name": "Man", "tooltip": "Manipulation<br>Affects manipulation" },
-        "appearance": { "name": "Appearance", "short_name": "App", "tooltip": "Appearance<br>Affects appearance" },
-        "perception": { "name": "Perception", "short_name": "Per", "tooltip": "Perception<br>Affects perception" },
-        "intelligence": { "name": "Intelligence", "short_name": "Int", "tooltip": "Intelligence<br>Affects intelligence" },
-        "wits": { "name": "Wits", "short_name": "Wit", "tooltip": "Wits<br>Affects wits" }
+        "physical": { "name": "Physical", "tooltip": "Physical<br>Your physical attribute does stuff." },
+        "social": { "name": "Social", "tooltip": "Social<br>Your social attribute does stuff." },
+        "mental": { "name": "Mental", "tooltip": "Mental<br>Your mental attribute does stuff." }
     }
 }

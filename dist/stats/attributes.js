@@ -3,15 +3,9 @@ import { S_localisationManager, S_tooltip } from "../main.js";
 // ordered for the sake of easy table population lmao
 export var Attribute;
 (function (Attribute) {
-    Attribute["Strength"] = "strength";
-    Attribute["Presence"] = "presence";
-    Attribute["Perception"] = "perception";
-    Attribute["Dexterity"] = "dexterity";
-    Attribute["Manipulation"] = "manipulation";
-    Attribute["Intelligence"] = "intelligence";
-    Attribute["Stamina"] = "stamina";
-    Attribute["Appearance"] = "appearance";
-    Attribute["Wits"] = "wits";
+    Attribute["Physical"] = "physical";
+    Attribute["Social"] = "social";
+    Attribute["Mental"] = "mental";
 })(Attribute || (Attribute = {}));
 export class AttributeContainer {
     constructor(attribute, baseValue = baseAttributeValue) {
@@ -31,11 +25,11 @@ export class AttributeContainer {
         container.id = `attribute_label.${this.attribute}`;
         let shortNameSpan = document.createElement("span");
         shortNameSpan.id = `attribute_label_name.${this.attribute}`;
-        shortNameSpan.innerHTML = S_localisationManager.getString(`attribute.${this.attribute}.short_name`);
+        shortNameSpan.innerHTML = S_localisationManager.getString(`attribute.${this.attribute}.name`);
         this.H_labelName = shortNameSpan;
         let valueSpan = document.createElement("span");
         valueSpan.id = `attribute_label_value.${this.attribute}`;
-        valueSpan.className = `attribute_grid_item_value`;
+        valueSpan.className = `attribute_value`;
         valueSpan.innerHTML = this.value.toString();
         this.H_labelValue = valueSpan;
         container.append(shortNameSpan, ": ", valueSpan);

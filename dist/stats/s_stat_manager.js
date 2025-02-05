@@ -29,7 +29,7 @@ export class StatManager {
         }
         // checking if any of the super skills should be made visible
         // ...later, when I add save/load
-        const H_attributeContainer = document.getElementById("attribute_grid");
+        const H_attributeContainer = document.getElementById("attributes_pane");
         this.attributeList = new Map();
         Object.values(Attribute).forEach((value) => {
             const attributeContainer = new AttributeContainer(value);
