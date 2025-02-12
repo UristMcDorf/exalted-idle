@@ -1,7 +1,7 @@
 import { ActionType } from "../../actions/actions.js";
 import { ResourceType } from "../../s_character_state_manager.js";
 import { LocationEffectType } from "../location_effects/location_effects.js";
-import { ExploreDB } from "./explore_db.js";
+import { DB_ExploreArea } from "./explore_area_db.js";
 import { ActionDBEntry, LocationDBEntry, LocationEffectDBEntry } from "./location_db_interfaces.js";
 
 // TODO: probably possible to write validators for this
@@ -70,7 +70,7 @@ export const DB_Location: Set<LocationDBEntry> = new Set<LocationDBEntry>([
             { type: ActionType.Move, moveFrom: "rats", moveWhere: "field" }
         ]),
         locationEffectList: new Set<LocationEffectDBEntry>([
-            { visible: true, type: LocationEffectType.Explore, exploreArea: ExploreDB.get("rats")! }
+            { visible: true, type: LocationEffectType.Explore, exploreArea: DB_ExploreArea.get("rats")! }
         ])
     }
 ])

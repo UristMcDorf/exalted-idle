@@ -12,6 +12,7 @@ import { Tooltip } from "./s_tooltip.js";
 import { InventoryManager } from "./items/s_inventory_manager.js";
 import { SettingsManager } from "./s_settings_manager.js";
 import { DebugManager } from "./s_debug_manager.js";
+import { CombatManager } from "./s_combat_manager.js";
 
 export const saveLoadAbleList: Set<ISaveLoadAble> = new Set<ISaveLoadAble>();
 export const updatesList: Set<IUpdates> = new Set<IUpdates>();
@@ -40,6 +41,7 @@ export const S_tooltip: Tooltip = new Tooltip();
 export const S_inventoryManager: InventoryManager = new InventoryManager();
 export const S_settingsManager: SettingsManager = new SettingsManager();
 export const S_debugManager: DebugManager = new DebugManager();
+export const S_combatManager: CombatManager = new CombatManager();
 
 /* END - SINGLETON CONSTANT REFERENCES */
 

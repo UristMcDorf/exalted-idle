@@ -21,7 +21,8 @@
             "field-gentle_farm": { "text": "Farm gently" },
             "field-intense_farm": { "text": "Farm with INTENSITY" },
             "field-rats": { "text": "Hunt rats" },
-            "farm-field": { "text": "Stop farming" }
+            "farm-field": { "text": "Stop farming" },
+            "rats-field": { "text": "Stop ratting" }
         }
     }
 }

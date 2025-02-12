@@ -10,6 +10,7 @@ import { Tooltip } from "./s_tooltip.js";
 import { InventoryManager } from "./items/s_inventory_manager.js";
 import { SettingsManager } from "./s_settings_manager.js";
 import { DebugManager } from "./s_debug_manager.js";
+import { CombatManager } from "./s_combat_manager.js";
 export const saveLoadAbleList = new Set();
 export const updatesList = new Set();
 /* BEGIN - HTML ELEMENTS CONSTANT REFERENCES */
@@ -32,6 +33,7 @@ export const S_tooltip = new Tooltip();
 export const S_inventoryManager = new InventoryManager();
 export const S_settingsManager = new SettingsManager();
 export const S_debugManager = new DebugManager();
+export const S_combatManager = new CombatManager();
 /* END - SINGLETON CONSTANT REFERENCES */
 // initial setup goes here
 function run() {

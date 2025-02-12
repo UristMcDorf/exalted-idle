@@ -1,3 +1,5 @@
+import { S_localisationManager } from "./main";
+
 export interface Weighted
 {
     weight: number;
@@ -16,20 +18,20 @@ export class Utils
         return Math.min(upper, Math.max(lower, value));
     }
 
-    static weightedPick(weightedSet: Set<Weighted>): Weighted | null
+    static weightedPick<Type extends Weighted>(weightedList: Type[]): Type | null
     {
-        if(weightedSet.size == 0) return null;
+        if(weightedList.length == 0) return null;
 
         let totalWeight: number = 0;
 
-        for(const weighted of weightedSet)
+        for(const weighted of weightedList)
         {
             totalWeight += weighted.weight;
         }
 
-        let randomWeight: number = Math.floor(Math.random() * (totalWeight - 1));
+        let randomWeight: number = Math.floor(Math.random() * totalWeight);
 
-        for(const weighted of weightedSet)
+        for(const weighted of weightedList)
         {
             randomWeight -= weighted.weight;
 
@@ -40,6 +42,26 @@ export class Utils
         }
 
         return null;
+    }
+
+    static weightedIdListToString<Type extends WeightedID>(baseLocCategory: string, weighteIdList: Type[]): string
+    {
+        if(weighteIdList.length == 0) return "---";
+
+        let returnString: string = "";
+        let totalWeight: number = 0;
+
+        for(const weighted of weighteIdList)
+        {
+            totalWeight += weighted.weight;
+        }
+
+        for(const weighted of weighteIdList)
+        {
+            returnString += `${((weighted.weight / totalWeight) * 100).toFixed(2)}% - ${S_localisationManager.getString(`${baseLocCategory}.${weighted.id}.name`)}<br>`;
+        }
+
+        return returnString.slice(0, -4);
     }
 }
 

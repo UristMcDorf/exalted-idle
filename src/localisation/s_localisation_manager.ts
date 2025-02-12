@@ -30,6 +30,7 @@ export class LocalisationManager
         await this.loadJSONSource("locations_and_actions");
         await this.loadJSONSource("misc_ui");
         await this.loadJSONSource("items");
+        await this.loadJSONSource("combat");
     }
 
     async loadJSONSource(fileName: string)

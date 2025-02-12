@@ -1,7 +1,7 @@
 import { ActionType } from "../../actions/actions.js";
 import { ResourceRegenMultiplier, ResourceType } from "../../s_character_state_manager.js";
 import { LocationEffectType } from "../location_effects/location_effects.js";
-import { ExploreAreaDBEntry } from "./explore_db.js";
+import { ExploreAreaDBEntry } from "./explore_area_db.js";
 
 export interface LocationDBEntry
 {

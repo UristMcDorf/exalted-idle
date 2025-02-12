@@ -1,0 +1,12 @@
+{
+    "enemy":
+    {
+        "rat": { "name": "Rat", "desc": "A mangy little creature, it is a wonder how it ever posed you any threat at all." },
+        "eliterat": { "name": "Elite Rat", "desc": "While you were training your Sleeping skill, this rat was farming INTENSELY. ...Still doesn't make it <i>that</i> dangerous." }
+    },
+    "attack":
+    {
+        "claw": { "name": "Claw" },
+        "bite": { "name": "Bite" }
+    }
+}

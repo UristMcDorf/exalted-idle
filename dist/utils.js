@@ -1,23 +1,37 @@
+import { S_localisationManager } from "./main";
 export class Utils {
     // TODO: upper >= lower checking?
     static clamp(value, lower, upper) {
         return Math.min(upper, Math.max(lower, value));
     }
-    static weightedPick(weightedSet) {
-        if (weightedSet.size == 0)
+    static weightedPick(weightedList) {
+        if (weightedList.length == 0)
             return null;
         let totalWeight = 0;
-        for (const weighted of weightedSet) {
+        for (const weighted of weightedList) {
             totalWeight += weighted.weight;
         }
-        let randomWeight = Math.floor(Math.random() * (totalWeight - 1));
-        for (const weighted of weightedSet) {
+        let randomWeight = Math.floor(Math.random() * totalWeight);
+        for (const weighted of weightedList) {
             randomWeight -= weighted.weight;
             if (randomWeight < 0) {
                 return weighted;
             }
         }
         return null;
+    }
+    static weightedIdListToString(baseLocCategory, weighteIdList) {
+        if (weighteIdList.length == 0)
+            return "---";
+        let returnString = "";
+        let totalWeight = 0;
+        for (const weighted of weighteIdList) {
+            totalWeight += weighted.weight;
+        }
+        for (const weighted of weighteIdList) {
+            returnString += `${((weighted.weight / totalWeight) * 100).toFixed(2)}% - ${S_localisationManager.getString(`${baseLocCategory}.${weighted.id}.name`)}<br>`;
+        }
+        return returnString.slice(0, -4);
     }
 }
 //TODO: write implicit conversion from tuple
