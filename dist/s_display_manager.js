@@ -21,6 +21,7 @@ export class DisplayManager {
         this.H_screenTint = document.getElementById(`screen_tint`);
         this.H_screenTint.addEventListener("click", evt => this.toggleScreenTintClick());
         this.screenTintSource = null;
+        this.moneyDisplays = new Set();
     }
     switchToTab(category, tab) {
         switch (category) {
@@ -46,5 +47,21 @@ export class DisplayManager {
     }
     toggleScreenTintClick() {
         this.screenTintSource.toggle();
+    }
+    updateTheme(colorScheme) {
+        for (const [key, value] of Object.entries(colorScheme)) {
+            document.documentElement.style.setProperty(`--${key}`, `${value}`);
+        }
+    }
+    // TODO: how to make temporary money displays dereferenced properly for GC when not in use?
+    // So that I can use it for temp stuff like log entries
+    // Right now a known issue will be that log entries etc will _not_ get updated with the setting
+    registerMoneyDisplay(moneyDisplay) {
+        this.moneyDisplays.add(moneyDisplay);
+    }
+    updateMoneyDisplays() {
+        for (const moneyDisplay of this.moneyDisplays) {
+            moneyDisplay.update();
+        }
     }
 }

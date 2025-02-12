@@ -45,7 +45,7 @@ class InventoryEntry implements ITooltipSource
 
         const amountSpan: HTMLSpanElement = document.createElement("span");
         amountSpan.id = `inventory_entry.amount.${this.item.id}`;
-        amountSpan.className = `inventory_entry_amount`;
+        amountSpan.className = `float_right`;
         amountSpan.innerHTML = this.amount.toString();
         this.H_labelAmount = amountSpan;
 

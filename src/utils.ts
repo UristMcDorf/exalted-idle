@@ -1,4 +1,4 @@
-import { S_localisationManager } from "./main";
+import { S_localisationManager } from "./main.js";
 
 export interface Weighted
 {
@@ -62,6 +62,34 @@ export class Utils
         }
 
         return returnString.slice(0, -4);
+    }
+
+    static moneyToHTML(value: number, thematic: boolean, full: boolean = false): string
+    {
+       if(thematic)
+        {
+            let valueString: string = ``;
+
+            if(full || Math.floor(value / 1024) > 0) valueString += `${Math.floor(value / 1024)} Koku `;
+            value %= 1024;
+
+            if(full || Math.floor(value / 128) > 0) valueString += `${Math.floor(value / 128)} Qian `;
+            value %= 128;
+
+            if(full || Math.floor(value / 64) > 0) valueString += `${Math.floor(value / 64)} Siu `;
+            value %= 64;
+
+            if(full || Math.floor(value / 8) > 0) valueString += `${Math.floor(value / 8)} `;
+            value %= 8;
+
+            valueString += ` Yen <span class="eighth">(${value}/8)</span>`;
+
+            return valueString;
+        }
+        else
+        {
+            return `${value} money`;
+        }
     }
 }
 

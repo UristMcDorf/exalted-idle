@@ -30,6 +30,10 @@
     </select>
     <br>
     <br>
+    <span id="settings.money_display.label">Immersive money display</span>
+    <input id="settings.money_display.input" type="checkbox">
+    <br>
+    <br>
     <!-- TODO: should also show an "are you sure?" warning -->
     <a id="settings.clear_data_button" class="meta_button"> 
         Clear local save
@@ -37,6 +41,8 @@
 </div>
 
 <div id="debug_panel" class="settings_panel invisible">
+    <a id="debug.random1.button" class="meta_button">Current debug function 1</a>
+    <a id="debug.random2.button" class="meta_button">Current debug function 2</a>
     Set skill level:
     <select id="debug.skill.select">
     </select>
@@ -83,6 +89,7 @@
         </div>
     </div>
     <div id="attributes_pane"></div>
+    <div id="money_pane" class="main_smaller"><span id="money_display" class="float_right"></span></div>
 </div>
 <div id="left_main_panel.tab.abilities" class="main_panel_element box main_grid_left_pane">
     <div class="tab_header">Abilities</div>

@@ -63,7 +63,7 @@ export class AttributeContainer implements ITooltipSource
 
         let valueSpan: HTMLSpanElement = document.createElement("span");
         valueSpan.id = `attribute_label_value.${this.attribute}`;
-        valueSpan.className = `attribute_value`;
+        valueSpan.className = `float_right`;
         valueSpan.innerHTML = this.value.toString();
         this.H_labelValue = valueSpan;
 

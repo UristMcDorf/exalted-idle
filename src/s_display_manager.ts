@@ -1,7 +1,9 @@
 // Handles UI and stuff
 // Switching between tabs, settings, etc
 
+import { ColorScheme } from "./color_schemes.js";
 import { IScreenTintSource } from "./global_interfaces.js";
+import { MoneyDisplay } from "./money_display.js";
 
 interface TabPanelPair
 {
@@ -16,6 +18,8 @@ export class DisplayManager
     
     H_screenTint: HTMLElement;
     screenTintSource: IScreenTintSource | null;
+
+    moneyDisplays: Set<MoneyDisplay>;
 
     constructor()
     {
@@ -44,6 +48,8 @@ export class DisplayManager
         this.H_screenTint.addEventListener("click", evt => this.toggleScreenTintClick());
         
         this.screenTintSource = null;
+
+        this.moneyDisplays = new Set<MoneyDisplay>();
     }
 
     switchToTab(category: string, tab: string): void
@@ -81,5 +87,29 @@ export class DisplayManager
     toggleScreenTintClick(): void
     {
         this.screenTintSource!.toggle();
+    }
+
+    updateTheme(colorScheme: ColorScheme): void
+    {
+        for(const [key, value] of Object.entries(colorScheme))
+        {
+            document.documentElement.style.setProperty(`--${key}`, `${value}`);
+        }
+    }
+
+    // TODO: how to make temporary money displays dereferenced properly for GC when not in use?
+    // So that I can use it for temp stuff like log entries
+    // Right now a known issue will be that log entries etc will _not_ get updated with the setting
+    registerMoneyDisplay(moneyDisplay: MoneyDisplay): void
+    {
+        this.moneyDisplays.add(moneyDisplay);
+    }
+
+    updateMoneyDisplays(): void
+    {
+        for(const moneyDisplay of this.moneyDisplays)
+        {
+            moneyDisplay.update();
+        }
     }
 }

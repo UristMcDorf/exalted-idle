@@ -192,7 +192,7 @@ export class Skill implements ITooltipSource
 
         const levelSpan: HTMLSpanElement = document.createElement("span");
         levelSpan.id = `skill_label.level.${this.id}`;
-        levelSpan.className = `skill_label_level`;
+        levelSpan.className = `float_right`;
         levelSpan.innerHTML = this.levelString();
         this.H_labelLevel = levelSpan;
 

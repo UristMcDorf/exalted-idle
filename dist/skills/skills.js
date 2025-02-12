@@ -67,7 +67,7 @@ export class Skill {
         this.H_labelName = nameSpan;
         let levelSpan = document.createElement("span");
         levelSpan.id = "skill_label.level." + this.id;
-        levelSpan.className = "skill_label_level";
+        levelSpan.className = "float_right";
         levelSpan.innerHTML = this.levelString();
         this.H_labelLevel = levelSpan;
         labelDiv.append(nameSpan, " ", levelSpan);

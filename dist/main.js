@@ -23,15 +23,15 @@ export const S_localisationManager = new LocalisationManager();
 await loadLocalisation(); // must be done before the others because they rely on it to provide strings
 // TODO: initialise with loaded values for ISaveLoadAbles
 // HIGHER PRIORITY now that themes are in
+export const S_settingsManager = new SettingsManager();
+export const S_displayManager = new DisplayManager();
 export const S_gameTimeManager = new GameTimeManager();
 export const S_logManager = new LogManager();
 export const S_characterStateManager = new CharacterStateManager();
 export const S_statManager = new StatManager();
 export const S_locationManager = new LocationManager();
-export const S_displayManager = new DisplayManager();
 export const S_tooltip = new Tooltip();
 export const S_inventoryManager = new InventoryManager();
-export const S_settingsManager = new SettingsManager();
 export const S_debugManager = new DebugManager();
 export const S_combatManager = new CombatManager();
 /* END - SINGLETON CONSTANT REFERENCES */

@@ -29,7 +29,7 @@ export class AttributeContainer {
         this.H_labelName = shortNameSpan;
         let valueSpan = document.createElement("span");
         valueSpan.id = `attribute_label_value.${this.attribute}`;
-        valueSpan.className = `attribute_value`;
+        valueSpan.className = `float_right`;
         valueSpan.innerHTML = this.value.toString();
         this.H_labelValue = valueSpan;
         container.append(shortNameSpan, ": ", valueSpan);

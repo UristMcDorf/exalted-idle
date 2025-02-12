@@ -1,4 +1,4 @@
-interface ColorScheme
+export interface ColorScheme
 {
     bgColor: string;
     tooltipBgColor: string;

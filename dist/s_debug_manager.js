@@ -1,5 +1,6 @@
 // largely copies settings manager
-import { S_displayManager, S_localisationManager, S_statManager } from "./main.js";
+import { S_characterStateManager, S_displayManager, S_localisationManager, S_statManager } from "./main.js";
+import { ResourceType } from "./s_character_state_manager.js";
 // Allowing myself some spaghetti fuckin' code here
 export class DebugManager {
     constructor() {
@@ -7,6 +8,8 @@ export class DebugManager {
         this.debugPanelVisible = false;
         this.H_debugPanel = document.getElementById("debug_panel");
         this.debugFlag ? document.getElementById(`debug_panel_button`).addEventListener("click", evt => this.toggle()) : document.getElementById(`debug_panel_button`).remove();
+        document.getElementById("debug.random1.button").addEventListener("click", evt => this.currentDebugFunction1());
+        document.getElementById("debug.random2.button").addEventListener("click", evt => this.currentDebugFunction2());
         this.setupSkillSetter();
     }
     toggle() {
@@ -31,5 +34,12 @@ export class DebugManager {
     setSkill() {
         const skill = S_statManager.skillList.get(document.getElementById(`debug.skill.select`).value);
         skill.setXp(skill.xpToSpecificLevel(Number.parseInt(document.getElementById(`debug.skill.select.input`).value)));
+    }
+    // whatever I need to work on stuff on hand
+    currentDebugFunction1() {
+        S_characterStateManager.adjustResource(ResourceType.Money, 3);
+    }
+    currentDebugFunction2() {
+        S_characterStateManager.adjustResource(ResourceType.Money, -1);
     }
 }

@@ -1,4 +1,5 @@
 import { saveLoadAbleList, updatesList } from "./main.js";
+import { MoneyDisplay } from "./money_display.js";
 import { ProgressBar } from "./progress_bar.js";
 import { Utils } from "./utils.js";
 export var ResourceType;
@@ -6,7 +7,9 @@ export var ResourceType;
     ResourceType["Health"] = "health";
     ResourceType["Vigour"] = "vigour";
     ResourceType["Essence"] = "essence";
+    ResourceType["Money"] = "money";
 })(ResourceType || (ResourceType = {}));
+const ResourceMaxInfinite = Number.MAX_VALUE;
 class Resource {
     constructor(value, minValue, maxValue, baseRegen, progressBar) {
         this.value = value;
@@ -14,7 +17,8 @@ class Resource {
         this.maxValue = maxValue;
         this.baseRegen = baseRegen;
         this.regenModifiers = new Set();
-        this.progressBar = progressBar;
+        if (progressBar !== undefined)
+            this.progressBar = progressBar;
     }
     // returns false if it couldn't adjust
     adjust(amount, clampToBounds = true) {
@@ -23,7 +27,7 @@ class Resource {
         if (outOfBounds && !clampToBounds)
             return false;
         this.value = Utils.clamp(adjustedValue, this.minValue, this.maxValue);
-        this.progressBar.setValue(this.value);
+        this.updateDisplay();
         return true;
     }
     canAdjust(amount) {
@@ -46,7 +50,21 @@ class Resource {
         this.regenModifiers.delete(regenModifier);
     }
     updateDisplay() {
-        this.progressBar.update();
+        var _a;
+        (_a = this.progressBar) === null || _a === void 0 ? void 0 : _a.setValue(this.value);
+    }
+}
+class ResourceMoney extends Resource {
+    constructor(value, minValue, maxValue, baseRegen) {
+        super(value, minValue, maxValue, baseRegen);
+        this.moneyDisplay = new MoneyDisplay(document.getElementById("money_display"), this);
+    }
+    updateDisplay() {
+        this.moneyDisplay.update();
+    }
+    // IMoneyDisplaySource implementation block
+    getMoneyAmount() {
+        return this.value;
     }
 }
 export class CharacterStateManager {
@@ -55,7 +73,8 @@ export class CharacterStateManager {
         this.saveId = "character_state";
         this.resources = new Map([
             [ResourceType.Health, new Resource(100, 0, 100, 0.1, new ProgressBar(ResourceType.Health, 100, 100))],
-            [ResourceType.Vigour, new Resource(100, 0, 100, 1, new ProgressBar(ResourceType.Vigour, 100, 100))]
+            [ResourceType.Vigour, new Resource(100, 0, 100, 1, new ProgressBar(ResourceType.Vigour, 100, 100))],
+            [ResourceType.Money, new ResourceMoney(0, 0, ResourceMaxInfinite, 0)]
         ]);
         saveLoadAbleList.add(this);
         updatesList.add(this);
@@ -67,7 +86,8 @@ export class CharacterStateManager {
         }
     }
     adjustResource(type, amount, clampToBounds = true) {
-        this.resources.get(type).adjust(amount, clampToBounds);
+        const resource = this.resources.get(type);
+        resource.adjust(amount, clampToBounds);
     }
     canAdjustResource(type, amount) {
         return this.resources.get(type).canAdjust(amount);
@@ -77,6 +97,21 @@ export class CharacterStateManager {
     }
     unregisterModifier(resource, regenModifier) {
         this.resources.get(resource).regenModifiers.delete(regenModifier);
+    }
+    updateDisplay() {
+        for (const [key, value] of this.resources) {
+            value.updateDisplay();
+        }
+    }
+    // returns false if flag was already there
+    registerFlag(flag) {
+        if (this.flags.has(flag))
+            return false;
+        this.flags.add(flag);
+        return true;
+    }
+    hasFlag(flag) {
+        return this.flags.has(flag);
     }
     save() {
         let data = "";
@@ -98,20 +133,5 @@ export class CharacterStateManager {
         }
         this.updateDisplay();
         return returnValue;
-    }
-    updateDisplay() {
-        for (const [key, value] of this.resources) {
-            value.updateDisplay();
-        }
-    }
-    // returns false if flag was already there
-    registerFlag(flag) {
-        if (this.flags.has(flag))
-            return false;
-        this.flags.add(flag);
-        return true;
-    }
-    hasFlag(flag) {
-        return this.flags.has(flag);
     }
 }

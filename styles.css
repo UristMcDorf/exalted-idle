@@ -58,13 +58,18 @@
     transition-duration: 0.2s;
 }
 
+.main_smaller
+{
+    font-size: 10pt;
+}
+
 .main_grid
 {
     display: grid;
     grid-template-columns: 20% auto 20%;
     /* Uncomment and remove line below when ready to implement sliding timeline */
     /* grid-template-rows: calc(var(--timeWeatherDisplayHeight) * 2) 110px auto 20px 20px; */
-    grid-template-rows: var(--timeWeatherDisplayHeight) 130px auto 20px 20px;
+    grid-template-rows: var(--timeWeatherDisplayHeight) 144px auto 20px 20px;
 
     grid-template-areas: 
         "status_pane time_weather right_pane"
@@ -90,7 +95,7 @@
 .main_grid_right_tabs { grid-area: right_tabs; }
 .main_grid_meta { grid-area: meta; text-indent: 0px; }
 
-.attribute_value
+.float_right
 {
     text-align: right;
     float: right;
@@ -283,13 +288,6 @@ input:focus
     text-indent: 8px;
 }
 
-.skill_label_level
-{
-    text-align: right;
-    float: right;
-    margin-right: 4px;
-}
-
 .tooltip
 {
     position: fixed;
@@ -408,13 +406,6 @@ input:focus
 .equip_grid_acc0 { grid-area: acc0; }
 .equip_grid_acc1 { grid-area: acc1; }
 
-.inventory_entry_amount
-{
-    text-align: right;
-    float: right;
-    margin-right: 4px;
-}
-
 .inactive
 {
     color: var(--hintFontColor);
@@ -461,6 +452,11 @@ input:focus
 
     /* TODO: actual grid
     since it's just the one option for now though it's fine */
+}
+
+.eighth
+{
+    font-size: 8pt;
 }
 
 /* Apparently can't be properly styled and needs replacing with a custom element

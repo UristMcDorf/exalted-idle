@@ -1,5 +1,6 @@
 import { ISaveLoadAble, IUpdates } from "./global_interfaces.js";
-import { saveLoadAbleList, updatesList } from "./main.js";
+import { S_characterStateManager, saveLoadAbleList, updatesList } from "./main.js";
+import { IMoneyDisplaySource, MoneyDisplay } from "./money_display.js";
 import { ProgressBar } from "./progress_bar.js";
 import { Utils } from "./utils.js";
 
@@ -7,7 +8,8 @@ export enum ResourceType
 {
     Health = "health",
     Vigour = "vigour",
-    Essence = "essence"
+    Essence = "essence",
+    Money = "money"
 }
 
 export interface ResourceRegenMultiplier
@@ -15,25 +17,28 @@ export interface ResourceRegenMultiplier
     multiplier: number;
 }
 
+const ResourceMaxInfinite: number = Number.MAX_VALUE;
+
 class Resource
 {
     value: number;
-    minValue: number;
+    minValue: number; // NOTE: only included because I _theoretically_ might need it, but in practice always 0
     maxValue: number;
 
     baseRegen: number;
     regenModifiers: Set<ResourceRegenMultiplier>;
     
-    progressBar: ProgressBar;
+    progressBar?: ProgressBar; // TODO: instead split Resource into progressbar and moneyed
 
-    constructor(value: number, minValue: number, maxValue: number, baseRegen: number, progressBar: ProgressBar)
+    constructor(value: number, minValue: number, maxValue: number, baseRegen: number, progressBar?: ProgressBar)
     {
         this.value = value;
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.baseRegen = baseRegen;
         this.regenModifiers = new Set<ResourceRegenMultiplier>();
-        this.progressBar = progressBar;
+
+        if(progressBar !== undefined) this.progressBar = progressBar;
     }
 
     // returns false if it couldn't adjust
@@ -46,7 +51,7 @@ class Resource
 
         this.value = Utils.clamp(adjustedValue, this.minValue, this.maxValue);
 
-        this.progressBar.setValue(this.value);
+        this.updateDisplay();
 
         return true;
     }
@@ -83,13 +88,35 @@ class Resource
 
     updateDisplay(): void
     {
-        this.progressBar.update();
+        this.progressBar?.setValue(this.value);
+    }
+}
+
+class ResourceMoney extends Resource implements IMoneyDisplaySource
+{
+    moneyDisplay: MoneyDisplay;
+
+    constructor(value: number, minValue: number, maxValue: number, baseRegen: number)
+    {
+        super(value, minValue, maxValue, baseRegen);
+
+        this.moneyDisplay = new MoneyDisplay(document.getElementById("money_display")!, this);
+    }
+
+    updateDisplay(): void
+    {
+        this.moneyDisplay.update();
+    }
+
+    // IMoneyDisplaySource implementation block
+    getMoneyAmount(): number
+    {
+        return this.value;
     }
 }
 
 export class CharacterStateManager implements ISaveLoadAble, IUpdates
 {
-
     resources: Map<ResourceType, Resource>;
 
     flags: Set<string>;
@@ -98,7 +125,8 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
     {
         this.resources = new Map([
             [ResourceType.Health, new Resource(100, 0, 100, 0.1, new ProgressBar(ResourceType.Health, 100, 100))],
-            [ResourceType.Vigour, new Resource(100, 0, 100, 1, new ProgressBar(ResourceType.Vigour, 100, 100))]
+            [ResourceType.Vigour, new Resource(100, 0, 100, 1, new ProgressBar(ResourceType.Vigour, 100, 100))],
+            [ResourceType.Money, new ResourceMoney(0, 0, ResourceMaxInfinite, 0)]
         ])
 
         saveLoadAbleList.add(this);
@@ -117,7 +145,8 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
 
     adjustResource(type: ResourceType, amount: number, clampToBounds: boolean = true): void
     {
-        this.resources.get(type)!.adjust(amount, clampToBounds);
+        const resource: Resource = this.resources.get(type)!;
+        resource.adjust(amount, clampToBounds);
     }
 
     canAdjustResource(type: ResourceType, amount: number): boolean
@@ -133,6 +162,28 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
     unregisterModifier(resource: ResourceType, regenModifier: ResourceRegenMultiplier): void
     {
         this.resources.get(resource)!.regenModifiers.delete(regenModifier);
+    }
+
+    updateDisplay(): void
+    {
+        for(const [key, value] of this.resources)
+        {
+            value.updateDisplay();
+        }
+    }
+
+    // returns false if flag was already there
+    registerFlag(flag: string): boolean
+    {
+        if(this.flags.has(flag)) return false;
+
+        this.flags.add(flag);
+        return true;
+    }
+
+    hasFlag(flag: string): boolean
+    {
+        return this.flags.has(flag);
     }
 
     // ISaveLoadAble implementation block
@@ -172,27 +223,5 @@ export class CharacterStateManager implements ISaveLoadAble, IUpdates
         this.updateDisplay();
 
         return returnValue;
-    }
-
-    updateDisplay(): void
-    {
-        for(const [key, value] of this.resources)
-        {
-            value.updateDisplay();
-        }
-    }
-
-    // returns false if flag was already there
-    registerFlag(flag: string): boolean
-    {
-        if(this.flags.has(flag)) return false;
-
-        this.flags.add(flag);
-        return true;
-    }
-
-    hasFlag(flag: string): boolean
-    {
-        return this.flags.has(flag);
     }
 }
