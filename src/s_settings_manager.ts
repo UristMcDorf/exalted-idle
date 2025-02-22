@@ -24,7 +24,7 @@ export class SettingsManager implements ISaveLoadAble, IScreenTintSource
 
         document.getElementById(`settings_button`)!.addEventListener("click", evt => this.toggle());
         document.getElementById(`settings.theme.select`)!.addEventListener("change", evt => this.updateTheme((<any>evt.target!).value)); // ugly bleh
-        document.getElementById(`settings.money_display.input`)!.addEventListener("input", evt => this.updateMoneyDisplays());
+        // document.getElementById(`settings.money_display.input`)!.addEventListener("input", evt => this.updateMoneyDisplays());
 
         saveLoadAbleList.add(this);
     }
